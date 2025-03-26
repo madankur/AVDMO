@@ -1,11 +1,11 @@
-             PGM        PARM(&ORD &PATH)
-             DCL        VAR(&ORD) TYPE(*CHAR) LEN(5)
-             DCL        VAR(&FILENAME) TYPE(*CHAR) LEN(50)
-             DCL        VAR(&PATH) TYPE(*CHAR) LEN(100)
-             CHGVAR     VAR(&FILENAME) VALUE('Custord' *CAT &ORD +
-                          *TCAT '.pdf')
-
-             CVTSPLPDF  FROMFILE(ORD500O) TOSTMF(&FILENAME) +
-                          TODIR(&PATH) SPLNBR(*LAST) +
-                          STMFOPT(*REPLACE) PAGESIZE(*A4 *PORTRAIT) +
-                          FONT(*COURIER 11) BOOKMARK(*NONE)
+000000161209             PGM        PARM(&ORD &PATH)
+000000161130             DCL        VAR(&ORD) TYPE(*CHAR) LEN(5)
+000000161130             DCL        VAR(&FILENAME) TYPE(*CHAR) LEN(50)
+000000161209             DCL        VAR(&PATH) TYPE(*CHAR) LEN(100)
+000000161130             CHGVAR     VAR(&FILENAME) VALUE('Custord' *CAT &ORD +
+000000161130                          *TCAT '.pdf')
+000000161130
+000000170222             CVTSPLPDF  FROMFILE(ORD500O) TOSTMF(&FILENAME) +
+000000170222                          TODIR(&PATH) SPLNBR(*LAST) +
+000000170222                          STMFOPT(*REPLACE) PAGESIZE(*A4 *PORTRAIT) +
+000000170222                          FONT(*COURIER 11) BOOKMARK(*NONE)

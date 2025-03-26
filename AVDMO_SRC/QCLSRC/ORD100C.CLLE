@@ -1,9 +1,9 @@
-             PGM        PARM(&CUID)
-             DCL        VAR(&CUID) TYPE(*DEC) LEN(5 0)
-             DLTF       FILE(QTEMP/DETORD)
-             MONMSG     MSGID(CPF0000)
-             CRTDUPOBJ  OBJ(DETORD) FROMLIB(*LIBL) OBJTYPE(*FILE) +
-                          TOLIB(QTEMP) NEWOBJ(DETORD) CST(*NO) +
-                          TRG(*NO)
-             OVRDBF     FILE(TMPDETORD) TOFILE(QTEMP/DETORD)
-             CRTORD     CUID(&CUID)
+000000161129             PGM        PARM(&CUID)
+000000161129             DCL        VAR(&CUID) TYPE(*DEC) LEN(5 0)
+000000161129             DLTF       FILE(QTEMP/DETORD)
+000000161129             MONMSG     MSGID(CPF0000)
+000000161129             CRTDUPOBJ  OBJ(DETORD) FROMLIB(*LIBL) OBJTYPE(*FILE) +
+000000161129                          TOLIB(QTEMP) NEWOBJ(DETORD) CST(*NO) +
+000000161129                          TRG(*NO)
+000000161129             OVRDBF     FILE(TMPDETORD) TOFILE(QTEMP/DETORD)
+000000170131             CRTORD     CUID(&CUID)
