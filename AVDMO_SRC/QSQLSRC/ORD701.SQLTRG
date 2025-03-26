@@ -1,13 +1,13 @@
-
-Create Trigger ORD701_Insert_order
-After Insert  on order
-Referencing  New As N
-
-For Each Row
-Program Name ORD701
-set option sqlPath = *LIBL
-Begin
-
-  Update Customer set culastord = n.ordate
-         where cuid = N.orcuid;
-End
+000000161219
+000000161219Create Trigger ORD701_Insert_order
+000000161219After Insert  on order
+000000161219Referencing  New As N
+000000161219
+000000170215For Each Row
+000000161219Program Name ORD701
+000000170215set option sqlPath = *LIBL
+000000161219Begin
+000000170215
+000000161219  Update Customer set culastord = n.ordate
+000000161219         where cuid = N.orcuid;
+000000161219End

@@ -1,23 +1,23 @@
-     --%CSTD===========================================================*
-     --* Application. : ARC_NEW    PRD:New Sample                      *
-     --* Component. . : CUSTOMERHI                    Type: TABLE      *
-     --*===============================================================*
-     --* Sub-system . : CUS Customer                                   *
-     --* Function . . :                                                *
-     --* Sub-function :                                                *
-     --*%S=============================================================*
-     --* Description of functions:                                     *
-     --*                                                               *
-     --*                                                               *
-     --*                                                               *
-     --*%E=============================================================*
-     --* AUTHOR:    VTAQUIN    19/10/2022 12:39  23.00.01              *
-     --* MODIFS: ** VTAQUIN    19/10/2022 12:39  23.00.01    00/       *
-     --%ECSTD==========================================================*
- CREATE TABLE CUSTOMERHI LIKE CUSTOMER;
-
--- If V7R3 or higher for SQL temporal table
--- V7R3 ALTER TABLE CUSTOMER
--- V7R3   ADD VERSIONING USE HISTORY TABLE CUSTOMERHI
--- V7R3   ON DELETE ADD EXTRA ROW ;
-
+000000888888     --%CSTD===========================================================*
+000000888888     --* Application. : ARC_NEW    PRD:New Sample                      *
+000000888888     --* Component. . : CUSTOMERHI                    Type: TABLE      *
+000000888888     --*===============================================================*
+000000888888     --* Sub-system . : CUS Customer                                   *
+000000888888     --* Function . . :                                                *
+000000888888     --* Sub-function :                                                *
+000000888888     --*%S=============================================================*
+000000888888     --* Description of functions:                                     *
+000000888888     --*                                                               *
+000000888888     --*                                                               *
+000000888888     --*                                                               *
+000000888888     --*%E=============================================================*
+000000888888     --* AUTHOR:    VTAQUIN    19/10/2022 12:39  23.00.01              *
+000000888888     --* MODIFS: ** VTAQUIN    19/10/2022 12:39  23.00.01    00/       *
+000000888888     --%ECSTD==========================================================*
+000000221019 CREATE TABLE CUSTOMERHI LIKE CUSTOMER;
+000000221019
+000000221019-- If V7R3 or higher for SQL temporal table
+000000221019-- V7R3 ALTER TABLE CUSTOMER
+000000221019-- V7R3   ADD VERSIONING USE HISTORY TABLE CUSTOMERHI
+000000221019-- V7R3   ON DELETE ADD EXTRA ROW ;
+000000221019

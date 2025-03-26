@@ -1,4 +1,4 @@
- create variable privileged_user for system name privilege smallint default 0;
- label on variable privileged_user is ' value 1 = priviliged user';
-
-
+000000221012 create variable privileged_user for system name privilege smallint default 0;
+000000221012 label on variable privileged_user is ' value 1 = priviliged user';
+000000221012
+000000221012
