@@ -1,169 +1,169 @@
-:pnlgrp dftmsgf=qcpfmsg
-        submsgf=sammsgf.
-:copyr.
-(C) Copyright Arcad Software, 2016.
-:import name='*'
-        pnlgrp=SAMHELP.
-:var name=Zmenu.
-:KEYL     NAME=key01
-          HELP=help.
-:KEYI     KEY=F1
-          HELP=help
-          ACTION=HELP.
-:KEYI     KEY=F3
-          HELP=help
-          PRIORITY=25
-          ACTION='exit set'.
-F3=Exit
-:KEYI     KEY=F4
-          HELP=help
-          PRIORITY=30
-          ACTION=PROMPT.
-F4=Prompt
-:KEYI     KEY=F6
-          HELP=help
-          PRIORITY=25
-          ACTION='cmd dspmsg'.
-F6=Messages
-:KEYI     KEY=F9
-          help=help
-          ACTION=retrieve
-          PRIORITY=30.
-F9=Retrieve
-:KEYI     KEY=F10
-          help=help
-          PRIORITY=40
-          ACTION='cmd dspjoblog'.
-F10=Job log
-:KEYI     KEY=F12
-          help=help
-          PRIORITY=30
-          ACTION='cancel set'.
-F12=Cancel
-:KEYI     KEY=F14
-          help=help
-          PRIORITY=25
-          ACTION='cmd wrksbmjob *user'.
-F14=Submitted jobs
-:KEYI     KEY=F24
-          help=help
-          ACTION=MOREKEYS.
-F24=More keys
-:KEYI     KEY=ENTER
-          help=help
-          ACTION=ENTER.
-:KEYI     KEY=HELP
-          HELP=help
-          ACTION=HELP.
-:KEYI     KEY=PAGEDOWN
-          help=help
-          ACTION=PAGEDOWN.
-:KEYI     KEY=PAGEUP
-          help=help
-          ACTION=PAGEUP.
-:KEYI     KEY=PRINT
-          help=help
-          ACTION=PRINT.
-:EKEYL.
-:panel name=SAMPLE
-help=h
-keyl=key01
-Enter='msg cpd9817 qcpfmsg'
-panelid=zmenu
-topsep=sysnam.
-Arcad Sample Application
-:menu depth='*'
-scroll=Yes
-Botsep=none.
-:Topinst.Select one of the following:
-:menugrp.Master files
-:menui option=1
-       action='cmd call ART200'
-       help=srt200.
-Work with Articles                                          ART200
-:menui option=2
-       action='cmd call CUS200'
-       help=cus200.
-Work with Customers                                         CUS200
-:menui option=3
-       action='cmd call ORD201'
-       help=cus200.
-Work with Customer Orders                                   ORD201
-:menui option=4
-       action='cmd call pro200'
-       help=pro200.
-Work with Providers                                         PRO200
-:menui option=5
-       action='cmd call pro201'
-       help=pro200.
-Display Providers                                           PRO201
-:menui option=6
-       action='cmd call ORD100C2'
-       help=ord100.
-Create a Customer Order.                                    ORD100
-:menui option=7
-       action='cmd call ART250'
-       help=ord100.
-Article by id                                               ART250
-:menui option=8
-       action='cmd call CUS250'
-       help=ord100.
-Customer by id                                              CUS250
-:menui option=9
-       action='cmd call PRO250'
-       help=ord100.
-Provider by id                                              PRO250
-:emenugrp.
-:menugrp.Reports
-:menui  option=10
-        action='cmd call pro203'
-        help=nohelp.
-Article to purchase                                         PRO203
-:menui  option=12
-        action='cmd STRQMQRY QMQRY(CUSQRY) QMFORM(CUSQRYFMT)'
-        help=nohelp.
-Customer with Open Order                              QMQRY:CUSQRY
-:menui  option=13
-        action='cmd STRQMQRY QMQRY(ARTQRY) '
-        help=nohelp.
-Article by Last Order Date                            QMQRY:ARTQRY
-:emenugrp.
-:menugrp.Utilities
-:menui  option=20
-        action='cmd call par200'
-        help=nohelp.
-Work with Parameters                                        PAR200
-:menui  option=21
-        action='cmd call cou200'
-        help=nohelp.
-Work with countries                                         COU200
-:menui  option=80
-        action='cmd call ord900'
-        help=nohelp.
-Reset LASTORDNO                                             ORD900
-:menui  option=81
-        action='cmd call ord901'
-        help=nohelp.
-Reset Order dates to current                                ORD901
-:menui  option=82
-        action='cmd call art801'
-        help=nohelp.
-Reset Summary Fields                                 SQLPRC:ART801
-:menui  option=83
-        action='cmd call par201'
-        help=nohelp.
-Work with IFS output                                        PAR201
-:menui  option=84
-        action='cmd adspusrspc samlog'
-        help=nohelp.
-Display Application log
-:emenugrp.
-:menui  option=90
-        action='cmd signoff'
-        help=nohelp.
-Signoff
-:emenu.
-:cmdline size=long.
-Selection or command
-:epanel.
-:epnlgrp.
+000000161027:pnlgrp dftmsgf=qcpfmsg
+000000161027        submsgf=sammsgf.
+000000161027:copyr.
+000000161027(C) Copyright Arcad Software, 2016.
+000000161027:import name='*'
+000000161027        pnlgrp=SAMHELP.
+000000161027:var name=Zmenu.
+000000161027:KEYL     NAME=key01
+000000161027          HELP=help.
+000000161027:KEYI     KEY=F1
+000000161027          HELP=help
+000000161027          ACTION=HELP.
+000000161027:KEYI     KEY=F3
+000000161027          HELP=help
+000000161027          PRIORITY=25
+000000161027          ACTION='exit set'.
+000000161027F3=Exit
+000000161027:KEYI     KEY=F4
+000000161027          HELP=help
+000000161027          PRIORITY=30
+000000161027          ACTION=PROMPT.
+000000161027F4=Prompt
+000000161027:KEYI     KEY=F6
+000000161027          HELP=help
+000000161027          PRIORITY=25
+000000161027          ACTION='cmd dspmsg'.
+000000161027F6=Messages
+000000161027:KEYI     KEY=F9
+000000161027          help=help
+000000161027          ACTION=retrieve
+000000161027          PRIORITY=30.
+000000161027F9=Retrieve
+000000161027:KEYI     KEY=F10
+000000161027          help=help
+000000161027          PRIORITY=40
+000000161027          ACTION='cmd dspjoblog'.
+000000161027F10=Job log
+000000161027:KEYI     KEY=F12
+000000161027          help=help
+000000161027          PRIORITY=30
+000000161027          ACTION='cancel set'.
+000000161027F12=Cancel
+000000161027:KEYI     KEY=F14
+000000161027          help=help
+000000161027          PRIORITY=25
+000000161027          ACTION='cmd wrksbmjob *user'.
+000000161027F14=Submitted jobs
+000000161027:KEYI     KEY=F24
+000000161027          help=help
+000000161027          ACTION=MOREKEYS.
+000000161027F24=More keys
+000000161027:KEYI     KEY=ENTER
+000000161027          help=help
+000000161027          ACTION=ENTER.
+000000161027:KEYI     KEY=HELP
+000000161027          HELP=help
+000000161027          ACTION=HELP.
+000000161027:KEYI     KEY=PAGEDOWN
+000000161027          help=help
+000000161027          ACTION=PAGEDOWN.
+000000161027:KEYI     KEY=PAGEUP
+000000161027          help=help
+000000161027          ACTION=PAGEUP.
+000000161027:KEYI     KEY=PRINT
+000000161027          help=help
+000000161027          ACTION=PRINT.
+000000161027:EKEYL.
+000000161027:panel name=SAMPLE
+000000161027help=h
+000000161027keyl=key01
+000000161027Enter='msg cpd9817 qcpfmsg'
+000000161027panelid=zmenu
+000000161027topsep=sysnam.
+000000161027Arcad Sample Application
+000000161027:menu depth='*'
+000000161027scroll=Yes
+000000161027Botsep=none.
+000000161027:Topinst.Select one of the following:
+000000161027:menugrp.Master files
+000000161027:menui option=1
+000000161027       action='cmd call ART200'
+000000161027       help=srt200.
+000000161209Work with Articles                                          ART200
+000000161027:menui option=2
+000000161027       action='cmd call CUS200'
+000000161027       help=cus200.
+000000161209Work with Customers                                         CUS200
+000000161027:menui option=3
+000000161027       action='cmd call ORD201'
+000000161027       help=cus200.
+000000161209Work with Customer Orders                                   ORD201
+000000161027:menui option=4
+000000161027       action='cmd call pro200'
+000000161027       help=pro200.
+000000161209Work with Providers                                         PRO200
+000000161104:menui option=5
+000000161104       action='cmd call pro201'
+000000161104       help=pro200.
+000000161209Display Providers                                           PRO201
+000000161129:menui option=6
+000000161129       action='cmd call ORD100C2'
+000000161129       help=ord100.
+000000161209Create a Customer Order.                                    ORD100
+000000210329:menui option=7
+000000210329       action='cmd call ART250'
+000000210329       help=ord100.
+000000210401Article by id                                               ART250
+000000210414:menui option=8
+000000210329       action='cmd call CUS250'
+000000210329       help=ord100.
+000000210401Customer by id                                              CUS250
+000000210414:menui option=9
+000000210329       action='cmd call PRO250'
+000000210329       help=ord100.
+000000210401Provider by id                                              PRO250
+000000161027:emenugrp.
+000000161209:menugrp.Reports
+000000210414:menui  option=10
+000000161209        action='cmd call pro203'
+000000161209        help=nohelp.
+000000161209Article to purchase                                         PRO203
+000000210401:menui  option=12
+000000161216        action='cmd STRQMQRY QMQRY(CUSQRY) QMFORM(CUSQRYFMT)'
+000000161216        help=nohelp.
+000000161216Customer with Open Order                              QMQRY:CUSQRY
+000000210401:menui  option=13
+000000161216        action='cmd STRQMQRY QMQRY(ARTQRY) '
+000000161216        help=nohelp.
+000000161216Article by Last Order Date                            QMQRY:ARTQRY
+000000161209:emenugrp.
+000000161104:menugrp.Utilities
+000000161216:menui  option=20
+000000161027        action='cmd call par200'
+000000161209        help=nohelp.
+000000161209Work with Parameters                                        PAR200
+000000161216:menui  option=21
+000000161027        action='cmd call cou200'
+000000161209        help=nohelp.
+000000161209Work with countries                                         COU200
+000000161209:menui  option=80
+000000161209        action='cmd call ord900'
+000000161209        help=nohelp.
+000000161209Reset LASTORDNO                                             ORD900
+000000161209:menui  option=81
+000000161209        action='cmd call ord901'
+000000161209        help=nohelp.
+000000161209Reset Order dates to current                                ORD901
+000000161209:menui  option=82
+000000161209        action='cmd call art801'
+000000161104        help=nohelp.
+000000161216Reset Summary Fields                                 SQLPRC:ART801
+000000161209:menui  option=83
+000000161209        action='cmd call par201'
+000000161209        help=nohelp.
+000000161209Work with IFS output                                        PAR201
+000000161216:menui  option=84
+000000161216        action='cmd adspusrspc samlog'
+000000161216        help=nohelp.
+000000161216Display Application log
+000000161104:emenugrp.
+000000161027:menui  option=90
+000000161027        action='cmd signoff'
+000000161027        help=nohelp.
+000000161027Signoff
+000000161027:emenu.
+000000161027:cmdline size=long.
+000000161027Selection or command
+000000161027:epanel.
+000000161027:epnlgrp.

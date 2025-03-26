@@ -1,18 +1,18 @@
-:pnlgrp.
-:help name=ART200.Work with Articles
-:p.Text
-:ehelp.
-:help name=CUS200.Work with Customers
-:p.Text
-:ehelp.
-:help name=PRO200.Work with Provider
-:p.Text
-:ehelp.
-:help name=NOHELP.Help
-:p.Help not available
-:ehelp.
-:help name=help.Help
-:p.Help not available
-:ehelp.
-
-:epnlgrp.
+000000161027:pnlgrp.
+000000161027:help name=ART200.Work with Articles
+000000161027:p.Text
+000000161027:ehelp.
+000000161027:help name=CUS200.Work with Customers
+000000161027:p.Text
+000000161027:ehelp.
+000000161027:help name=PRO200.Work with Provider
+000000161027:p.Text
+000000161027:ehelp.
+000000161027:help name=NOHELP.Help
+000000161027:p.Help not available
+000000161027:ehelp.
+000000161027:help name=help.Help
+000000161027:p.Help not available
+000000161027:ehelp.
+000000161027
+000000161027:epnlgrp.
