@@ -1,4 +1,4 @@
-             ADDPFTRG   FILE(DETORD) TRGTIME(*AFTER) +
-                          TRGEVENT(*DELETE) PGM(ORD700) +
-                          RPLTRG(*YES) +
-                          TRG(ORD700_DETORD_ARTICLE_DELETE)
+000000161130             ADDPFTRG   FILE(DETORD) TRGTIME(*AFTER) +
+000000161130                          TRGEVENT(*DELETE) PGM(ORD700) +
+000000161130                          RPLTRG(*YES) +
+000000161130                          TRG(ORD700_DETORD_ARTICLE_DELETE)
