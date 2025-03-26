@@ -1,7 +1,7 @@
-                                            UNIQUE
-                                            REF(SAMREF)
-                R FCOUN
-                  COID      R
-                  COUNTR    R
-                  COISO          3
-                K COID
+000000000713                                            UNIQUE
+000000161024                                            REF(SAMREF)
+000000000713                R FCOUN
+000000161024                  COID      R
+000000161024                  COUNTR    R
+000000151208                  COISO          3
+000000161024                K COID

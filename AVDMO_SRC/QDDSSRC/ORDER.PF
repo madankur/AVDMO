@@ -1,11 +1,11 @@
-                                            REF(SAMREF)
-                R FORDE
-                  ORID      R
-                  ORYEAR    R               REFFLD(YEAR)
-                  ORCUID    R               REFFLD(CUID)
-                  ORDATE         8  0       TEXT('ORDER DATE')
-                                            COLHDG('ORDER' 'DATE')
-                  ORDATDEL       8  0       TEXT('DELIVERY DATE')
-                                            COLHDG('DELIVERY' 'DATE')
-                  ORDATCLO       8  0       TEXT('CLOSE DATE')
-                                            COLHDG('CLOSE' 'DATE')
+000000161025                                            REF(SAMREF)
+000000000714                R FORDE
+000000161025                  ORID      R
+000000161025                  ORYEAR    R               REFFLD(YEAR)
+000000161025                  ORCUID    R               REFFLD(CUID)
+000000161025                  ORDATE         8  0       TEXT('ORDER DATE')
+000000161025                                            COLHDG('ORDER' 'DATE')
+000000161025                  ORDATDEL       8  0       TEXT('DELIVERY DATE')
+000000161025                                            COLHDG('DELIVERY' 'DATE')
+000000161025                  ORDATCLO       8  0       TEXT('CLOSE DATE')
+000000161025                                            COLHDG('CLOSE' 'DATE')

@@ -1,138 +1,138 @@
-     A*%%TS  SD  20161209  103924  VTAQUIN     REL-V7R1M0  5770-WDS
-     A*%%EC
-     A                                      DSPSIZ(24 80 *DS3)
-     A                                      INDARA
-     A                                      CA03(03)
-     A                                      CA12(12)
-     A                                      PRINT
-     A                                      ERRSFL
-     A          R SFL01                     SFL
-     A*%%TS  SD  20161129  100208  VTAQUIN     REL-V7R1M0  5770-WDS
-     A  33                                  SFLNXTCHG
-     A            OPT01          2Y 0B  7  3
-     A  34                                  DSPATR(RI)
-     A  34                                  DSPATR(PC)
-     A                                      EDTCDE(Z)
-     A            LINE      R        O  7  6REFFLD(FDETO/ODLINE *LIBL/DETORD)
-     A            ODARID    R        O  7 12REFFLD(FDETO/ODARID *LIBL/DETORD)
-     A            ARTDESC       30A  O  7 19
-     A            ODQTY     R        O  7 50REFFLD(FDETO/ODQTY *LIBL/DETORD)
-     A                                      EDTCDE(Z)
-     A            ODTOT     R        O  7 66REFFLD(FDETO/ODTOT *LIBL/DETORD)
-     A            ODPRICE   R        O  7 56REFFLD(FDETO/ODPRICE *LIBL/DETORD)
-     A          R CTL01                     SFLCTL(SFL01)
-     A*%%TS  SD  20161201  111220  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                      SFLSIZ(0015)
-     A                                      SFLPAG(0014)
-     A N80                                  PAGEDOWN(25 'dynamic subfile')
-     A                                      CF06(06)
-     A                                      CF08(08 'Confirm')
-     A                                      OVERLAY
-     A  31                                  SFLDSP
-     A  32                                  SFLDSPCTL
-     A  30                                  SFLCLR
-     A  80                                  SFLEND(*MORE)
-     A  35                                  SFLMSG('Invalid Option' 35)
-     A  36                                  SFLMSG('Confirmation is not allowed-
-     A                                       when options are pending.' 36)
-     A            RRB01          4S 0H      SFLRCDNBR
-     A                                  1  2'ORD100-1'
-     A                                      COLOR(BLU)
-     A                                  3  4'Type options, press Enter. Press F-
-     A                                      8 to confirm.'
-     A                                      COLOR(BLU)
-     A                                  4  6'2=Edit'
-     A                                      COLOR(BLU)
-     A                                  6  3'Opt'
-     A                                      DSPATR(HI)
-     A                                  1 29'Create a Customer Order'
-     A                                      DSPATR(HI)
-     A                                  4 17'4=Delete'
-     A                                      COLOR(BLU)
-     A                                  2  4'Customer . . . :'
-     A            ORCUID    R        O  2 22REFFLD(FORDE/ORCUID *LIBL/ORDER)
-     A            CUSTNAME      30A  O  2 29
-     A                                  6  7'Line'
-     A                                      DSPATR(HI)
-     A                                  6 12'Item'
-     A                                      DSPATR(HI)
-     A                                  6 19'Description'
-     A                                      DSPATR(HI)
-     A                                  6 52'Qty'
-     A                                      DSPATR(HI)
-     A                                  6 58'U.Price'
-     A                                      DSPATR(HI)
-     A                                  6 70'Total'
-     A                                      DSPATR(HI)
-     A                                  1 69DATE
-     A                                      EDTCDE(Y)
-     A                                      COLOR(BLU)
-     A                                  2 69TIME
-     A                                      COLOR(BLU)
-     A          R KEY01
-     A*%%TS  SD  20161201  111220  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                 23  3'F3=Exit'
-     A                                      COLOR(BLU)
-     A                                 23 40'F12=Cancel'
-     A                                      COLOR(BLU)
-     A                                 23 14'F6=Add'
-     A                                      COLOR(BLU)
-     A                                 23 25'F8=Confirm'
-     A                                      COLOR(BLU)
-     A            TOT       R        O 22 66REFFLD(FDETO/ODTOT *LIBL/DETORD)
-     A                                      DSPATR(HI)
-     A            TOTVAT    R        O 23 66REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
-     A                                      DSPATR(HI)
-     A          R FMT02
-     A*%%TS  SD  20161129  152013  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                      CHANGE(27)
-     A                                  1  2'ORD100-2'
-     A                                      COLOR(BLU)
-     A                                  3  4'Type choices, press Enter.'
-     A                                      COLOR(BLU)
-     A                                 23  3'F3=Exit'
-     A                                      COLOR(BLU)
-     A                                 23 19'F12=Cancel'
-     A                                      COLOR(BLU)
-     A                                  1 28'Add a customer Order Line'
-     A                                      DSPATR(HI)
-     A                                  1 65DATE
-     A                                      EDTCDE(Y)
-     A                                      COLOR(BLU)
-     A                                  2 65TIME
-     A                                      COLOR(BLU)
-     A                                  5  4'Customer . . . . :'
-     A                                  7  4'Article  . . . . :'
-     A                                  9  4'Quantity . . . . .'
-     A                                 10  4'Unit price . . . .'
-     A                                 11  4'Net price  . . . :'
-     A                                 12  4'Vat  . . . . . . :'
-     A                                 13  4'Total  . . . . . :'
-     A            ODARID    R        O  7 23REFFLD(FDETO/ODARID *LIBL/DETORD)
-     A            ODQTY     R        B  9 23REFFLD(FDETO/ODQTY *LIBL/DETORD)
-     A            ODPRICE   R        B 10 23REFFLD(FDETO/ODPRICE *LIBL/DETORD)
-     A            ODTOT     R        O 11 23REFFLD(FDETO/ODTOT *LIBL/DETORD)
-     A            ODTOTVAT  R        O 13 23REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
-     A            VAT       R        O 12 23REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
-     A            VATRATE   R        O  8 23REFFLD(FVAT/VATRATE *LIBL/VATDEF)
-     A                                  8  6'VAT rate . . . :'
-     A            ARTDESC       30A  O  7 31
-     A                                  6  4'Order line . . . :'
-     A            ODLINE    R        O  6 23REFFLD(FDETO/ODLINE *LIBL/DETORD)
-     A            ORCUID    R        O  5 23REFFLD(FORDE/ORCUID *LIBL/ORDER)
-     A            CUSTNAME      30A  O  5 31
-     A            MODE           3   O  3 65COLOR(BLU)
-     A          R FMT03
-     A*%%TS  SD  20161209  103924  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                      WINDOW(7 10 7 50)
-     A                                      WDWBORDER((*CHAR '*-*!!*-*'))
-     A                                  1 20'Confirmation'
-     A                                      DSPATR(HI)
-     A                                  3  2'Order'
-     A            ORID      R        O  3  8REFFLD(FORDE/ORID *LIBL/ORDER)
-     A                                  3 15'has been create for user'
-     A            ORCUID    R        O  3 40REFFLD(FORDE/ORCUID *LIBL/ORDER)
-     A            CUSTNAME      30A  O  4  2
-     A                                  5  2'The order is printed.'
-     A                                  6  2'Press Enter to continue.'
-     A                                      COLOR(BLU)
+000000161209     A*%%TS  SD  20161209  103924  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161209     A*%%EC
+000000161209     A                                      DSPSIZ(24 80 *DS3)
+000000161209     A                                      INDARA
+000000161209     A                                      CA03(03)
+000000161209     A                                      CA12(12)
+000000161209     A                                      PRINT
+000000161209     A                                      ERRSFL
+000000161129     A          R SFL01                     SFL
+000000161129     A*%%TS  SD  20161129  100208  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161129     A  33                                  SFLNXTCHG
+000000161129     A            OPT01          2Y 0B  7  3
+000000161129     A  34                                  DSPATR(RI)
+000000161129     A  34                                  DSPATR(PC)
+000000161129     A                                      EDTCDE(Z)
+000000161129     A            LINE      R        O  7  6REFFLD(FDETO/ODLINE *LIBL/DETORD)
+000000161129     A            ODARID    R        O  7 12REFFLD(FDETO/ODARID *LIBL/DETORD)
+000000161129     A            ARTDESC       30A  O  7 19
+000000161129     A            ODQTY     R        O  7 50REFFLD(FDETO/ODQTY *LIBL/DETORD)
+000000161129     A                                      EDTCDE(Z)
+000000161129     A            ODTOT     R        O  7 66REFFLD(FDETO/ODTOT *LIBL/DETORD)
+000000161129     A            ODPRICE   R        O  7 56REFFLD(FDETO/ODPRICE *LIBL/DETORD)
+000000161201     A          R CTL01                     SFLCTL(SFL01)
+000000161201     A*%%TS  SD  20161201  111220  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161201     A                                      SFLSIZ(0015)
+000000161201     A                                      SFLPAG(0014)
+000000161201     A N80                                  PAGEDOWN(25 'dynamic subfile')
+000000161201     A                                      CF06(06)
+000000161201     A                                      CF08(08 'Confirm')
+000000161201     A                                      OVERLAY
+000000161201     A  31                                  SFLDSP
+000000161201     A  32                                  SFLDSPCTL
+000000161201     A  30                                  SFLCLR
+000000161201     A  80                                  SFLEND(*MORE)
+000000161201     A  35                                  SFLMSG('Invalid Option' 35)
+000000161201     A  36                                  SFLMSG('Confirmation is not allowed-
+000000161201     A                                       when options are pending.' 36)
+000000161201     A            RRB01          4S 0H      SFLRCDNBR
+000000161201     A                                  1  2'ORD100-1'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  3  4'Type options, press Enter. Press F-
+000000161201     A                                      8 to confirm.'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  4  6'2=Edit'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  6  3'Opt'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  1 29'Create a Customer Order'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  4 17'4=Delete'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  2  4'Customer . . . :'
+000000161201     A            ORCUID    R        O  2 22REFFLD(FORDE/ORCUID *LIBL/ORDER)
+000000161201     A            CUSTNAME      30A  O  2 29
+000000161201     A                                  6  7'Line'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  6 12'Item'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  6 19'Description'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  6 52'Qty'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  6 58'U.Price'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  6 70'Total'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  1 69DATE
+000000161201     A                                      EDTCDE(Y)
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  2 69TIME
+000000161201     A                                      COLOR(BLU)
+000000161201     A          R KEY01
+000000161201     A*%%TS  SD  20161201  111220  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161201     A                                 23  3'F3=Exit'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                 23 40'F12=Cancel'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                 23 14'F6=Add'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                 23 25'F8=Confirm'
+000000161201     A                                      COLOR(BLU)
+000000161201     A            TOT       R        O 22 66REFFLD(FDETO/ODTOT *LIBL/DETORD)
+000000161201     A                                      DSPATR(HI)
+000000161201     A            TOTVAT    R        O 23 66REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
+000000161201     A                                      DSPATR(HI)
+000000161129     A          R FMT02
+000000161129     A*%%TS  SD  20161129  152013  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161129     A                                      CHANGE(27)
+000000161129     A                                  1  2'ORD100-2'
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                  3  4'Type choices, press Enter.'
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                 23  3'F3=Exit'
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                 23 19'F12=Cancel'
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                  1 28'Add a customer Order Line'
+000000161129     A                                      DSPATR(HI)
+000000161129     A                                  1 65DATE
+000000161129     A                                      EDTCDE(Y)
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                  2 65TIME
+000000161129     A                                      COLOR(BLU)
+000000161129     A                                  5  4'Customer . . . . :'
+000000161129     A                                  7  4'Article  . . . . :'
+000000161129     A                                  9  4'Quantity . . . . .'
+000000161129     A                                 10  4'Unit price . . . .'
+000000161129     A                                 11  4'Net price  . . . :'
+000000161129     A                                 12  4'Vat  . . . . . . :'
+000000161129     A                                 13  4'Total  . . . . . :'
+000000161129     A            ODARID    R        O  7 23REFFLD(FDETO/ODARID *LIBL/DETORD)
+000000161129     A            ODQTY     R        B  9 23REFFLD(FDETO/ODQTY *LIBL/DETORD)
+000000161129     A            ODPRICE   R        B 10 23REFFLD(FDETO/ODPRICE *LIBL/DETORD)
+000000161129     A            ODTOT     R        O 11 23REFFLD(FDETO/ODTOT *LIBL/DETORD)
+000000161129     A            ODTOTVAT  R        O 13 23REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
+000000161129     A            VAT       R        O 12 23REFFLD(FDETO/ODTOTVAT *LIBL/DETORD)
+000000161129     A            VATRATE   R        O  8 23REFFLD(FVAT/VATRATE *LIBL/VATDEF)
+000000161129     A                                  8  6'VAT rate . . . :'
+000000161129     A            ARTDESC       30A  O  7 31
+000000161129     A                                  6  4'Order line . . . :'
+000000161129     A            ODLINE    R        O  6 23REFFLD(FDETO/ODLINE *LIBL/DETORD)
+000000161129     A            ORCUID    R        O  5 23REFFLD(FORDE/ORCUID *LIBL/ORDER)
+000000161129     A            CUSTNAME      30A  O  5 31
+000000161129     A            MODE           3   O  3 65COLOR(BLU)
+000000161209     A          R FMT03
+000000161209     A*%%TS  SD  20161209  103924  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161209     A                                      WINDOW(7 10 7 50)
+000000161209     A                                      WDWBORDER((*CHAR '*-*!!*-*'))
+000000161209     A                                  1 20'Confirmation'
+000000161209     A                                      DSPATR(HI)
+000000161209     A                                  3  2'Order'
+000000161209     A            ORID      R        O  3  8REFFLD(FORDE/ORID *LIBL/ORDER)
+000000161209     A                                  3 15'has been create for user'
+000000161209     A            ORCUID    R        O  3 40REFFLD(FORDE/ORCUID *LIBL/ORDER)
+000000161209     A            CUSTNAME      30A  O  4  2
+000000161209     A                                  5  2'The order is printed.'
+000000161209     A                                  6  2'Press Enter to continue.'
+000000161209     A                                      COLOR(BLU)

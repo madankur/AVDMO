@@ -1,13 +1,13 @@
-                                            REF(SAMREF)
-     A          R FVAT
-     A            VATCODE   R
-     A            VATRATE   R
-     A            VATDESC       20
-     A            VATCREA         L         TEXT('CREATION DATE')
-     A                                      COLHDG('CREAETION' 'DATE')
-     A            VATMOD          Z         TEXT('LAST MODIFICATION')
-     A                                      COLHDG('LAST' 'MODIFICATION')
-     A            VATMODID      10          TEXT('LAS MOD BY')
-     A                                      COLHDG('LAST' 'MODIF.' 'BY')
-     A            VATDEL    R               REFFLD(DLCODE)
-     A          K VATCODE
+000000161027                                            REF(SAMREF)
+000000161027     A          R FVAT
+000000161027     A            VATCODE   R
+000000161027     A            VATRATE   R
+000000161027     A            VATDESC       20
+000000161027     A            VATCREA         L         TEXT('CREATION DATE')
+000000161027     A                                      COLHDG('CREAETION' 'DATE')
+000000161027     A            VATMOD          Z         TEXT('LAST MODIFICATION')
+000000161027     A                                      COLHDG('LAST' 'MODIFICATION')
+000000161027     A            VATMODID      10          TEXT('LAS MOD BY')
+000000161027     A                                      COLHDG('LAST' 'MODIF.' 'BY')
+000000161027     A            VATDEL    R               REFFLD(DLCODE)
+000000161027     A          K VATCODE

@@ -1,17 +1,17 @@
-                                            UNIQUE
-                                            REF(SAMREF)
-                R FARPR
-                  APARID    R               REFFLD(ARID)
-                  APPRID    R               REFFLD(PRID)
-                  APPRICE   R               REFFLD(UNITPRICE)
-                                            COLHDG('BUY PRICE')
-                  APREF         10          TEXT('PROVIDER REFERENCE')
-                  APCREA          L         TEXT('CREATION DATE')
-                                            COLHDG('CREAETION' 'DATE')
-                  APMOD           Z         TEXT('LAST MODIFICATION')
-                                            COLHDG('LAST' 'MODIFICATION')
-                  APMODID       10          TEXT('LAS MOD BY')
-                                            COLHDG('LAST' 'MODIF.' 'BY')
-                  APDEL     R               REFFLD(DLCODE)
-                K APPRID
-                K APARID
+000000000717                                            UNIQUE
+000000161024                                            REF(SAMREF)
+000000000714                R FARPR
+000000161024                  APARID    R               REFFLD(ARID)
+000000161024                  APPRID    R               REFFLD(PRID)
+000000161024                  APPRICE   R               REFFLD(UNITPRICE)
+000000000714                                            COLHDG('BUY PRICE')
+000000161024                  APREF         10          TEXT('PROVIDER REFERENCE')
+000000161024                  APCREA          L         TEXT('CREATION DATE')
+000000161024                                            COLHDG('CREAETION' 'DATE')
+000000161024                  APMOD           Z         TEXT('LAST MODIFICATION')
+000000161024                                            COLHDG('LAST' 'MODIFICATION')
+000000161024                  APMODID       10          TEXT('LAS MOD BY')
+000000161024                                            COLHDG('LAST' 'MODIF.' 'BY')
+000000161024                  APDEL     R               REFFLD(DLCODE)
+000000161024                K APPRID
+000000161024                K APARID

@@ -1,100 +1,100 @@
-     A*%%TS  SD  20161209  103441  VTAQUIN     REL-V7R1M0  5770-WDS
-     A* %ATTR RSTDSP(*YES)
-     A*%%EC
-     A                                      DSPSIZ(24 80 *DS3)
-     A                                      INDARA
-     A                                      CA03(03)
-     A                                      CA12(12)
-     A                                      PRINT
-     A                                      ERRSFL
-     A          R SFL01                     SFL
-     A*%%TS  SD  20161201  161051  VTAQUIN     REL-V7R1M0  5770-WDS
-     A  33                                  SFLNXTCHG
-     A            ARID      R        O  6  2REFFLD(ARID *LIBL/ARTICLE)
-     A            NAME25        25A  O  6  9
-     A            ARSTOCK   R        O  6 35REFFLD(FARTI/ARSTOCK *LIBL/ARTICLE)
-     A                                      EDTCDE(Z)
-     A            ARMINQTY  R        O  6 42REFFLD(FARTI/ARMINQTY *LIBL/ARTICLE)
-     A                                      EDTCDE(Z)
-     A            ARCUSQTY  R        O  6 49REFFLD(FARTI/ARCUSQTY *LIBL/ARTICLE)
-     A                                      EDTCDE(Z)
-     A            ARPURQTY  R        O  6 55REFFLD(FARTI/ARPURQTY *LIBL/ARTICLE)
-     A                                      EDTCDE(Z)
-     A            NEWORD         5Y 0O  6 62DSPATR(HI)
-     A                                      EDTCDE(Z)
-     A            APPRICE   R        O  6 69REFFLD(FARPR/APPRICE *LIBL/ARTIPROV)
-     A            APREF     R        H      REFFLD(APREF ARTIPROV)
-     A            ARDESC    R        H      REFFLD(ARDESC ARTICLE)
-     A          R CTL01                     SFLCTL(SFL01)
-     A*%%TS  SD  20161201  160100  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                      SFLSIZ(0015)
-     A                                      SFLPAG(0014)
-     A N80                                  PAGEDOWN(25 'dynamic subfile')
-     A                                      CF08(08 'Confirm')
-     A                                      OVERLAY
-     A  31                                  SFLDSP
-     A  32                                  SFLDSPCTL
-     A  30                                  SFLCLR
-     A  80                                  SFLEND(*MORE)
-     A                                      SFLDROP(CF11)
-     A  35                                  SFLMSG('Invalid Option' 35)
-     A  36                                  SFLMSG('Closed order can not be edi-
-     A                                      ted or deleted' 36)
-     A  37                                  SFLMSG('Order whith deliveries can -
-     A                                      not be deleted' 37)
-     A            RRB01          4S 0H      SFLRCDNBR
-     A                                  1  2'PRO202-1'
-     A                                      COLOR(BLU)
-     A                                  1 28'Prepare Purchase Proposal'
-     A                                      DSPATR(HI)
-     A                                  1 68DATE
-     A                                      EDTCDE(Y)
-     A                                      COLOR(BLU)
-     A                                  2  4'Provider . . . . :'
-     A            PRID      R        O  2 23REFFLD(FPROV/PRID *LIBL/PROVIDER)
-     A            PROVNM    R        O  2 29REFFLD(FPROV/PROVNM *LIBL/PROVIDER)
-     A                                  2 68TIME
-     A                                      COLOR(BLU)
-     A                                  3  4'Press <F8> to confirm.'
-     A                                      COLOR(BLU)
-     A                                  4 49'Cust'
-     A                                      DSPATR(HI)
-     A                                  4 56'Pur'
-     A                                      DSPATR(HI)
-     A                                  4 63'New'
-     A                                      DSPATR(HI)
-     A                                  5  2'Article'
-     A                                      DSPATR(HI)
-     A                                  5 35'Stock'
-     A                                      DSPATR(HI)
-     A                                  5 42'Min'
-     A                                      DSPATR(HI)
-     A                                  5 49'Order'
-     A                                      DSPATR(HI)
-     A                                  5 55'Order'
-     A                                      DSPATR(HI)
-     A                                  5 62'Order'
-     A                                      DSPATR(HI)
-     A                                  5 69'U Price'
-     A                                      DSPATR(HI)
-     A          R KEY01
-     A*%%TS  SD  20161201  153426  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                 23  3'F3=Exit'
-     A                                      COLOR(BLU)
-     A                                 23 32'F12=Cancel'
-     A                                      COLOR(BLU)
-     A                                 23 17'F8=Confirm'
-     A                                      COLOR(BLU)
-     A          R FMT03
-     A*%%TS  SD  20161209  103441  VTAQUIN     REL-V7R1M0  5770-WDS
-     A                                      WINDOW(7 10 7 50)
-     A                                      WDWBORDER((*CHAR '*-*!!*-*'))
-     A                                  1 20'Confirmation'
-     A                                      DSPATR(HI)
-     A                                  3  2'XML File'
-     A                                  6  2'Press Enter to continue.'
-     A                                      COLOR(BLU)
-     A            FILENAME      30A  O  3 12
-     A                                  4  2'created'
-     A                                  4 10'in'
-     A            PATH          35A  O  4 14
+000000161209     A*%%TS  SD  20161209  103441  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161209     A* %ATTR RSTDSP(*YES)
+000000161209     A*%%EC
+000000161209     A                                      DSPSIZ(24 80 *DS3)
+000000161209     A                                      INDARA
+000000161209     A                                      CA03(03)
+000000161209     A                                      CA12(12)
+000000161209     A                                      PRINT
+000000161209     A                                      ERRSFL
+000000161201     A          R SFL01                     SFL
+000000161201     A*%%TS  SD  20161201  161051  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161201     A  33                                  SFLNXTCHG
+000000161201     A            ARID      R        O  6  2REFFLD(ARID *LIBL/ARTICLE)
+000000161201     A            NAME25        25A  O  6  9
+000000161201     A            ARSTOCK   R        O  6 35REFFLD(FARTI/ARSTOCK *LIBL/ARTICLE)
+000000161201     A                                      EDTCDE(Z)
+000000161201     A            ARMINQTY  R        O  6 42REFFLD(FARTI/ARMINQTY *LIBL/ARTICLE)
+000000161201     A                                      EDTCDE(Z)
+000000161201     A            ARCUSQTY  R        O  6 49REFFLD(FARTI/ARCUSQTY *LIBL/ARTICLE)
+000000161201     A                                      EDTCDE(Z)
+000000161201     A            ARPURQTY  R        O  6 55REFFLD(FARTI/ARPURQTY *LIBL/ARTICLE)
+000000161201     A                                      EDTCDE(Z)
+000000161201     A            NEWORD         5Y 0O  6 62DSPATR(HI)
+000000161201     A                                      EDTCDE(Z)
+000000161201     A            APPRICE   R        O  6 69REFFLD(FARPR/APPRICE *LIBL/ARTIPROV)
+000000161201     A            APREF     R        H      REFFLD(APREF ARTIPROV)
+000000161201     A            ARDESC    R        H      REFFLD(ARDESC ARTICLE)
+000000161201     A          R CTL01                     SFLCTL(SFL01)
+000000161201     A*%%TS  SD  20161201  160100  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161201     A                                      SFLSIZ(0015)
+000000161201     A                                      SFLPAG(0014)
+000000161201     A N80                                  PAGEDOWN(25 'dynamic subfile')
+000000161201     A                                      CF08(08 'Confirm')
+000000161201     A                                      OVERLAY
+000000161201     A  31                                  SFLDSP
+000000161201     A  32                                  SFLDSPCTL
+000000161201     A  30                                  SFLCLR
+000000161201     A  80                                  SFLEND(*MORE)
+000000161201     A                                      SFLDROP(CF11)
+000000161201     A  35                                  SFLMSG('Invalid Option' 35)
+000000161201     A  36                                  SFLMSG('Closed order can not be edi-
+000000161201     A                                      ted or deleted' 36)
+000000161201     A  37                                  SFLMSG('Order whith deliveries can -
+000000161201     A                                      not be deleted' 37)
+000000161201     A            RRB01          4S 0H      SFLRCDNBR
+000000161201     A                                  1  2'PRO202-1'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  1 28'Prepare Purchase Proposal'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  1 68DATE
+000000161201     A                                      EDTCDE(Y)
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  2  4'Provider . . . . :'
+000000161201     A            PRID      R        O  2 23REFFLD(FPROV/PRID *LIBL/PROVIDER)
+000000161201     A            PROVNM    R        O  2 29REFFLD(FPROV/PROVNM *LIBL/PROVIDER)
+000000161201     A                                  2 68TIME
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  3  4'Press <F8> to confirm.'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                  4 49'Cust'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  4 56'Pur'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  4 63'New'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5  2'Article'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 35'Stock'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 42'Min'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 49'Order'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 55'Order'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 62'Order'
+000000161201     A                                      DSPATR(HI)
+000000161201     A                                  5 69'U Price'
+000000161201     A                                      DSPATR(HI)
+000000161201     A          R KEY01
+000000161201     A*%%TS  SD  20161201  153426  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161201     A                                 23  3'F3=Exit'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                 23 32'F12=Cancel'
+000000161201     A                                      COLOR(BLU)
+000000161201     A                                 23 17'F8=Confirm'
+000000161201     A                                      COLOR(BLU)
+000000161209     A          R FMT03
+000000161209     A*%%TS  SD  20161209  103441  VTAQUIN     REL-V7R1M0  5770-WDS
+000000161209     A                                      WINDOW(7 10 7 50)
+000000161209     A                                      WDWBORDER((*CHAR '*-*!!*-*'))
+000000161209     A                                  1 20'Confirmation'
+000000161209     A                                      DSPATR(HI)
+000000161209     A                                  3  2'XML File'
+000000161209     A                                  6  2'Press Enter to continue.'
+000000161209     A                                      COLOR(BLU)
+000000161209     A            FILENAME      30A  O  3 12
+000000161209     A                                  4  2'created'
+000000161209     A                                  4 10'in'
+000000161209     A            PATH          35A  O  4 14

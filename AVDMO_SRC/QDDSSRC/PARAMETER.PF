@@ -1,12 +1,12 @@
-     A                                      UNIQUE
-     A          R FPARAM
-     A            PACODE        10          TEXT('Parameter code')
-     A            PASUBCODE     10          TEXT('Parameter sub-Code')
-     A            PARM1         10          TEXT('Parameter 1')
-     A            PARM2        100          TEXT('Parameter 2')
-     A            PARM3          2          TEXT('Parameter 3')
-     A            PARM4          1  0       TEXT('Parameter 4')
-     A            PARM5          3  0       TEXT('Parameter 5')
-     A          K PACODE
-     A          K PASUBCODE
-
+000000161209     A                                      UNIQUE
+000000161209     A          R FPARAM
+000000161209     A            PACODE        10          TEXT('Parameter code')
+000000161209     A            PASUBCODE     10          TEXT('Parameter sub-Code')
+000000161209     A            PARM1         10          TEXT('Parameter 1')
+000000161209     A            PARM2        100          TEXT('Parameter 2')
+000000161209     A            PARM3          2          TEXT('Parameter 3')
+000000161209     A            PARM4          1  0       TEXT('Parameter 4')
+000000161209     A            PARM5          3  0       TEXT('Parameter 5')
+000000161209     A          K PACODE
+000000161209     A          K PASUBCODE
+000000161209

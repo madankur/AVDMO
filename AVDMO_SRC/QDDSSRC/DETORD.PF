@@ -1,20 +1,20 @@
-                                            REF(SAMREF)
-                R FDETO
-                  ODORID    R               REFFLD(ORID)
-                  ODYEAR    R               REFFLD(YEAR)
-                  ODLINE    R
-                  ODARID    R               REFFLD(ARID)
-                  ODQTY     R               TEXT('ORDERED QUANTITY')
-                                            COLHDG('ORDER' 'QUANTITY')
-                                            REFFLD(QUANTITY)
-                  ODQTYLIV  R               TEXT('DELIVERED QUANTITY')
-                                            COLHDG('DELIV' 'QUANTITY')
-                                            REFFLD(QUANTITY)
-                  ODPRICE   R               REFFLD(UNITPRICE)
-                  ODTOT     R               REFFLD(TOTPRICE)
-                  ODTOTVAT  R               REFFLD(TOTPRICE)
-                                            TEXT('TOTAL LINE WITH VAT')
-                                            COLHDG('TOTAL LINE' 'WITH VAT')
-                K ODLINE
-                K ODORID
-                K ODYEAR
+000000161025                                            REF(SAMREF)
+000000000714                R FDETO
+000000161025                  ODORID    R               REFFLD(ORID)
+000000161025                  ODYEAR    R               REFFLD(YEAR)
+000000161025                  ODLINE    R
+000000161025                  ODARID    R               REFFLD(ARID)
+000000161025                  ODQTY     R               TEXT('ORDERED QUANTITY')
+000000161025                                            COLHDG('ORDER' 'QUANTITY')
+000000161025                                            REFFLD(QUANTITY)
+000000161025                  ODQTYLIV  R               TEXT('DELIVERED QUANTITY')
+000000161025                                            COLHDG('DELIV' 'QUANTITY')
+000000161025                                            REFFLD(QUANTITY)
+000000161025                  ODPRICE   R               REFFLD(UNITPRICE)
+000000161025                  ODTOT     R               REFFLD(TOTPRICE)
+000000161027                  ODTOTVAT  R               REFFLD(TOTPRICE)
+000000161027                                            TEXT('TOTAL LINE WITH VAT')
+000000161027                                            COLHDG('TOTAL LINE' 'WITH VAT')
+000000161129                K ODLINE
+000000161129                K ODORID
+000000161129                K ODYEAR
