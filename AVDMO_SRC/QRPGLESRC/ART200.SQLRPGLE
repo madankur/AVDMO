@@ -1,3 +1,19 @@
+      *%CSTD===========================================================*
+      ** Application. : AVDMO      Arcad Demo                          *
+      ** Component. . : ART200                        Type: SQLRPGLE   *
+      **===============================================================*
+      ** Sub-system . :                                                *
+      ** Function . . :                                                *
+      ** Sub-function :                                                *
+      **%S=============================================================*
+      ** Description of functions:                                     *
+      **                                                               *
+      **                                                               *
+      **                                                               *
+      **%E=============================================================*
+      ** AUTHOR:                          00:00                        *
+      ** MODIFS: 01 AVERMA     03/26/2025 07:56  01.00.01    00/       *
+      *%ECSTD==========================================================*
 
      h dftactgrp(*no) bnddir('SAMPLE')
 
@@ -38,6 +54,12 @@
      D rrn01           s              5i 0
      D rrs01           s              5i 0
      D err01           s               n
+     D uwvar1          S             10A
+     D uwvar2          S             10A
+     D uwvar3          S             10A
+     D uwvar4          S             10A
+     D uwvar5          S             10A
+     D uwvar6          S             10A
 
      D panel           S              3i 0 INZ(1)
      D step01          S              3    inz(prp)
