@@ -1,272 +1,272 @@
-
-     fprovide1  uf a e           k disk
-     fpro200d   cf   e             workstn
-     F                                     indds(indds)
-     F                                     sfile(sfl01:rrn01)
-     F                                     Infds(Info)
-
-      /copy qprotosrc,country
-
-     d articles        pr                  extpgm('ART202')
-     d  id                                 like(prid)
-
-     d prpord          pr                  extproc('PRO202')
-     d  id                                 like(prid)
-
-     D indds           ds
-     D  help                   1      1n
-     D  exit                   3      3n
-     D  prompt                 4      4n
-     D  refresh                5      5n
-     D  cancel                12     12n
-     D  morekeys              24     24n
-     D  pagedown              25     25n
-     D  sflclr                30     30n
-     D  sfldsp                31     31n
-     D  sfldspctl             32     32n
-     D  sflnxtchg             33     33n
-     D  dspatr_ri             34     34n
-     D  sflmsg                35     35n
-     D  ErrCountry            40     40n
-     D  ErrName               41     41n
-     D  sflend                80     80n
-
-     D info            ds
-     D  lrrn                 378    379i 0
-
-     D rrn01           s              5i 0
-     D rrs01           s              5i 0
-     D err01           s               n
-
-     D panel           S              3i 0 INZ(1)
-     D step01          S              3    inz(prp)
-     D step02          S              3    inz(prp)
-     D step03          S              3    inz(prp)
-     d savId           s                   like(prid)
-     d User            s             10    inz(*user)
-     d count           s              3i 0
-     d mode            s              3
-
-     d crt             c                   'CRT'
-     d upd             c                   'UPD'
-     d prp             c                   'prp'
-     d lod             c                   'lod'
-     d dsp             c                   'dsp'
-     d key             c                   'key'
-     d chk             c                   'chk'
-     d act             c                   'act'
-      /free
-       select;
-       when panel = 1;
-         exsr pnl01;
-       when panel = 2;
-         exsr pnl02;
-       other;
-         exsr pnl00;
-       endsl;
-       //- Subfiles  01 Subroutines --------------------------------------  ---
-       begsr pnl01;
-         select ;
-         when step01 = prp ;
-           exsr s01prp;
-         when step01 = lod ;
-           exsr s01lod;
-         when step01 = dsp ;
-           exsr s01dsp;
-         when step01 = key ;
-           exsr s01key;
-         when step01 = chk ;
-           exsr s01chk;
-         when step01 = act ;
-           exsr s01act ;
-         endsl;
-       endsr;
-       //--- Clear Subfile  ----------------------------------------------------
-       begsr s01prp;
-         RRn01 = 0;
-         sflclr = *on;
-         write ctl01;
-         sflclr = *off;
-         step01 = lod;
-         clear savid;
-         rrs01 = 0;
-       endsr;
-       //--- Load Subfile  -----------------------------------------------------
-       begsr s01lod;
-         exsr s01rst;
-         RRb01 = RRn01 + 1;
-         opt01 = 0;
-         count = 0;
-         read(n) provide1;
-         dow not %eof(provide1) and count < 14;
-           RRN01 += 1;
-           count += 1;
-           write sfl01;
-           read(n) provide1;
-         enddo;
-         sflend = %eof(provide1);
-         step01 = dsp;
-         exsr s01sav;
-       endsr;
-       //--- restore last read -------------------------------------------------
-       begsr s01rst;
-         setll savid  provide1;
-         rrn01 = rrs01;
-       endsr;
-       //--- Save last read -------------------------------------------------
-       begsr s01sav;
-         savid = prid;
-         rrs01 = rrn01;
-       endsr;
-       //--- Display Subfile  --------------------------------------------------
-       begsr s01dsp;
-         sfldspctl = *on;
-         sfldsp = RRn01 > 0;
-
-         write key01;
-         exfmt ctl01;
-         if LRRN <>0;
-           RRb01 = LRRN;
-         endif;
-         step01 = key;
-       endsr;
-       //--- Command Keys  -----------------------------------------------------
-       begsr s01key;
-         select;
-         when exit;
-           panel  = 0;
-           step01 = prp;
-         when cancel;
-           step01 = prp;
-           panel  = panel  - 1;
-         when pagedown;
-           step01 = lod;
-         other;
-           step01 = chk;
-         endsl;
-       endsr;
-       //--- Check Subfile  ----------------------------------------------------
-       begsr s01chk;
-         step01 = act;
-         err01 = *off;
-         sflnxtchg = *on;
-         readc(e) sfl01;
-         dow not %error and not %eof;
-           if opt01  <> 0 and opt01  <> 2 and opt01  <> 5 and opt01  <> 7;
-             step01 = dsp;
-             dspatr_ri = *on;
-             sflmsg = *on;
-             if not err01;
-               rrb01 = rrn01;
-               err01 = *on;
-             endif;
-           endif;
-           update sfl01;
-           dspatr_ri = *off;
-           readc(e) sfl01;
-         enddo;
-         sflnxtchg = *off;
-       endsr;
-       //--- action Subfile  ---------------------------------------------------
-       begsr s01act;
-         readc(e) sfl01;
-         select;
-         when %error or %eof;
-           step01 = dsp;
-         when opt01 = 2;
-           panel = 2;
-           step02 = prp;
-           opt01 = 0;
-           update sfl01;
-           // to remove the bug uncomment the following line
-           // mode = upd;
-         when opt01 = 5;
-           articles(prid);
-           opt01 = 0;
-           update sfl01;
-         when opt01 = 7;
-           prpOrd(prid);
-           opt01 = 0;
-           update sfl01;
-         other;
-
-         endsl;
-       endsr;
-
-
-       //--- Format 02 Subroutines ------------------------------------     ---
-       begsr pnl02;
-         select ;
-         when step02 = prp ;
-           exsr s02prp;
-         when step02 = dsp ;
-           exsr s02dsp;
-         when step02 = key ;
-           exsr s02key;
-         when step02 = chk ;
-           exsr s02chk;
-         when step02 = act ;
-           exsr s02act ;
-         endsl;
-
-       endsr;
-       //--- clear & Load ------------------------------------------------------
-       begsr S02prp;
-         chain prid provide1;
-         coname = GetCountryName(prcoun);
-         step02 = dsp;
-       endsr;
-       //--- Display  ----------------------------------------------------------
-       begsr S02dsp;
-         exfmt fmt02;
-         step02 = key;
-       endsr;
-       //--- command Keys  -----------------------------------------------------
-       begsr S02key;
-         select;
-         when exit;
-           panel  = 1;
-           step02 = prp;
-         when cancel;
-           step02 = prp;
-           panel  = panel  - 1;
-         when prompt;
-           step02 = dsp;
-           prcoun = SltCountry(prcoun);
-           coname = GetCountryName(prcoun);
-         other;
-           step02 = chk;
-         endsl;
-       endsr;
-       //--- check -------------------------------------------------------------
-       begsr S02chk;
-         step02 = act;
-         if not ExistCountry(prcoun);
-           errCountry = *on;
-           step02 = dsp;
-         endif;
-         if provnm = *blanks;
-           errName = *on;
-           step02 = dsp;
-         endif;
-
-       endsr;
-       //--- Action ------------------------------------------------------------
-       begsr S02act;
-         step02 = prp;
-         if mode = upd;
-           prmod = %timestamp();
-           prmodid = user;
-           update fprov;
-         endif;
-         panel = 1;
-       endsr;
-
-       //--------INITIALIZATION ----------------------------------
-       begsr *inzsr;
-       endsr;
-       //--------END SUBROUTINE ----------------------------------
-       begsr pnl00;
-         *inlr = *on;
-       endsr;
-      /end-free
+000000161025
+000000161025     fprovide1  uf a e           k disk
+000000161025     fpro200d   cf   e             workstn
+000000161025     F                                     indds(indds)
+000000161025     F                                     sfile(sfl01:rrn01)
+000000161025     F                                     Infds(Info)
+000000161025
+000000161025      /copy qprotosrc,country
+000000161201
+000000161104     d articles        pr                  extpgm('ART202')
+000000161104     d  id                                 like(prid)
+000000161104
+000000161201     d prpord          pr                  extproc('PRO202')
+000000161201     d  id                                 like(prid)
+000000161201
+000000161025     D indds           ds
+000000161025     D  help                   1      1n
+000000161025     D  exit                   3      3n
+000000161025     D  prompt                 4      4n
+000000161025     D  refresh                5      5n
+000000161025     D  cancel                12     12n
+000000161025     D  morekeys              24     24n
+000000161025     D  pagedown              25     25n
+000000161025     D  sflclr                30     30n
+000000161025     D  sfldsp                31     31n
+000000161025     D  sfldspctl             32     32n
+000000161025     D  sflnxtchg             33     33n
+000000161025     D  dspatr_ri             34     34n
+000000161025     D  sflmsg                35     35n
+000000161025     D  ErrCountry            40     40n
+000000161025     D  ErrName               41     41n
+000000161025     D  sflend                80     80n
+000000161025
+000000161025     D info            ds
+000000161025     D  lrrn                 378    379i 0
+000000161025
+000000161025     D rrn01           s              5i 0
+000000161025     D rrs01           s              5i 0
+000000161025     D err01           s               n
+000000161025
+000000161025     D panel           S              3i 0 INZ(1)
+000000161025     D step01          S              3    inz(prp)
+000000161025     D step02          S              3    inz(prp)
+000000161025     D step03          S              3    inz(prp)
+000000161025     d savId           s                   like(prid)
+000000161025     d User            s             10    inz(*user)
+000000161025     d count           s              3i 0
+000000161025     d mode            s              3
+000000161025
+000000161025     d crt             c                   'CRT'
+000000161025     d upd             c                   'UPD'
+000000161025     d prp             c                   'prp'
+000000161025     d lod             c                   'lod'
+000000161025     d dsp             c                   'dsp'
+000000161025     d key             c                   'key'
+000000161025     d chk             c                   'chk'
+000000161025     d act             c                   'act'
+000000161103      /free
+000000161025       select;
+000000161025       when panel = 1;
+000000161025         exsr pnl01;
+000000161025       when panel = 2;
+000000161025         exsr pnl02;
+000000161025       other;
+000000161025         exsr pnl00;
+000000161025       endsl;
+000000161025       //- Subfiles  01 Subroutines --------------------------------------  ---
+000000161025       begsr pnl01;
+000000161025         select ;
+000000161025         when step01 = prp ;
+000000161025           exsr s01prp;
+000000161025         when step01 = lod ;
+000000161025           exsr s01lod;
+000000161025         when step01 = dsp ;
+000000161025           exsr s01dsp;
+000000161025         when step01 = key ;
+000000161025           exsr s01key;
+000000161025         when step01 = chk ;
+000000161025           exsr s01chk;
+000000161025         when step01 = act ;
+000000161025           exsr s01act ;
+000000161025         endsl;
+000000161025       endsr;
+000000161025       //--- Clear Subfile  ----------------------------------------------------
+000000161025       begsr s01prp;
+000000161025         RRn01 = 0;
+000000161025         sflclr = *on;
+000000161025         write ctl01;
+000000161025         sflclr = *off;
+000000161025         step01 = lod;
+000000161025         clear savid;
+000000161025         rrs01 = 0;
+000000161025       endsr;
+000000161025       //--- Load Subfile  -----------------------------------------------------
+000000161025       begsr s01lod;
+000000161025         exsr s01rst;
+000000161025         RRb01 = RRn01 + 1;
+000000161025         opt01 = 0;
+000000161025         count = 0;
+000000161025         read(n) provide1;
+000000161025         dow not %eof(provide1) and count < 14;
+000000161025           RRN01 += 1;
+000000161025           count += 1;
+000000161025           write sfl01;
+000000161025           read(n) provide1;
+000000161025         enddo;
+000000161025         sflend = %eof(provide1);
+000000161025         step01 = dsp;
+000000161025         exsr s01sav;
+000000161025       endsr;
+000000161025       //--- restore last read -------------------------------------------------
+000000161025       begsr s01rst;
+000000161025         setll savid  provide1;
+000000161025         rrn01 = rrs01;
+000000161025       endsr;
+000000161025       //--- Save last read -------------------------------------------------
+000000161025       begsr s01sav;
+000000161025         savid = prid;
+000000161025         rrs01 = rrn01;
+000000161025       endsr;
+000000161025       //--- Display Subfile  --------------------------------------------------
+000000161025       begsr s01dsp;
+000000161025         sfldspctl = *on;
+000000161025         sfldsp = RRn01 > 0;
+000000161025
+000000161025         write key01;
+000000161025         exfmt ctl01;
+000000161025         if LRRN <>0;
+000000161025           RRb01 = LRRN;
+000000161025         endif;
+000000161025         step01 = key;
+000000161025       endsr;
+000000161025       //--- Command Keys  -----------------------------------------------------
+000000161025       begsr s01key;
+000000161025         select;
+000000161025         when exit;
+000000161025           panel  = 0;
+000000161025           step01 = prp;
+000000161025         when cancel;
+000000161025           step01 = prp;
+000000161025           panel  = panel  - 1;
+000000161025         when pagedown;
+000000161025           step01 = lod;
+000000161025         other;
+000000161025           step01 = chk;
+000000161025         endsl;
+000000161025       endsr;
+000000161025       //--- Check Subfile  ----------------------------------------------------
+000000161025       begsr s01chk;
+000000161025         step01 = act;
+000000161025         err01 = *off;
+000000161025         sflnxtchg = *on;
+000000161025         readc(e) sfl01;
+000000161025         dow not %error and not %eof;
+000000161201           if opt01  <> 0 and opt01  <> 2 and opt01  <> 5 and opt01  <> 7;
+000000161025             step01 = dsp;
+000000161025             dspatr_ri = *on;
+000000161025             sflmsg = *on;
+000000161025             if not err01;
+000000161025               rrb01 = rrn01;
+000000161025               err01 = *on;
+000000161025             endif;
+000000161025           endif;
+000000161025           update sfl01;
+000000161025           dspatr_ri = *off;
+000000161025           readc(e) sfl01;
+000000161025         enddo;
+000000161025         sflnxtchg = *off;
+000000161025       endsr;
+000000161025       //--- action Subfile  ---------------------------------------------------
+000000161025       begsr s01act;
+000000161025         readc(e) sfl01;
+000000161025         select;
+000000161025         when %error or %eof;
+000000161025           step01 = dsp;
+000000161025         when opt01 = 2;
+000000161025           panel = 2;
+000000161025           step02 = prp;
+000000161025           opt01 = 0;
+000000161025           update sfl01;
+000000170511           // to remove the bug uncomment the following line
+000000170511           // mode = upd;
+000000161025         when opt01 = 5;
+000000161104           articles(prid);
+000000161025           opt01 = 0;
+000000161025           update sfl01;
+000000161201         when opt01 = 7;
+000000161201           prpOrd(prid);
+000000161201           opt01 = 0;
+000000161201           update sfl01;
+000000161025         other;
+000000161025
+000000161025         endsl;
+000000161025       endsr;
+000000161025
+000000161025
+000000161025       //--- Format 02 Subroutines ------------------------------------     ---
+000000161025       begsr pnl02;
+000000161025         select ;
+000000161025         when step02 = prp ;
+000000161025           exsr s02prp;
+000000161025         when step02 = dsp ;
+000000161025           exsr s02dsp;
+000000161025         when step02 = key ;
+000000161025           exsr s02key;
+000000161025         when step02 = chk ;
+000000161025           exsr s02chk;
+000000161025         when step02 = act ;
+000000161025           exsr s02act ;
+000000161025         endsl;
+000000161025
+000000161025       endsr;
+000000161025       //--- clear & Load ------------------------------------------------------
+000000161025       begsr S02prp;
+000000161025         chain prid provide1;
+000000161025         coname = GetCountryName(prcoun);
+000000161025         step02 = dsp;
+000000161025       endsr;
+000000161025       //--- Display  ----------------------------------------------------------
+000000161025       begsr S02dsp;
+000000161025         exfmt fmt02;
+000000161025         step02 = key;
+000000161025       endsr;
+000000161025       //--- command Keys  -----------------------------------------------------
+000000161025       begsr S02key;
+000000161025         select;
+000000161025         when exit;
+000000161025           panel  = 1;
+000000161025           step02 = prp;
+000000161025         when cancel;
+000000161025           step02 = prp;
+000000161025           panel  = panel  - 1;
+000000161025         when prompt;
+000000161025           step02 = dsp;
+000000161025           prcoun = SltCountry(prcoun);
+000000161025           coname = GetCountryName(prcoun);
+000000161025         other;
+000000161025           step02 = chk;
+000000161025         endsl;
+000000161025       endsr;
+000000161025       //--- check -------------------------------------------------------------
+000000161025       begsr S02chk;
+000000161025         step02 = act;
+000000161025         if not ExistCountry(prcoun);
+000000161025           errCountry = *on;
+000000161025           step02 = dsp;
+000000161025         endif;
+000000161025         if provnm = *blanks;
+000000161025           errName = *on;
+000000161025           step02 = dsp;
+000000161025         endif;
+000000161025
+000000161025       endsr;
+000000161025       //--- Action ------------------------------------------------------------
+000000161025       begsr S02act;
+000000161025         step02 = prp;
+000000161025         if mode = upd;
+000000161025           prmod = %timestamp();
+000000161025           prmodid = user;
+000000161025           update fprov;
+000000161025         endif;
+000000161025         panel = 1;
+000000161025       endsr;
+000000161025
+000000161025       //--------INITIALIZATION ----------------------------------
+000000161025       begsr *inzsr;
+000000161025       endsr;
+000000161025       //--------END SUBROUTINE ----------------------------------
+000000161025       begsr pnl00;
+000000161025         *inlr = *on;
+000000161025       endsr;
+000000161103      /end-free

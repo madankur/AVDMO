@@ -1,82 +1,82 @@
-     h nomain
-
-     FVATDEF    if   e           k disk    usropn
-
-      /copy qprotosrc,VAT
-
-     d chainVATDEF     pr
-     D P_VATCODE                      1A    value
-
-     D K_VATCODE       S                   LIKE(VATCODE)
-
-     C     kf            klist
-     C                   KFLD                    K_VATCODE
-
-      *=============================================
-     PGetVATRate       B                     export
-     DGetVATRate       PI             4P 2
-     D P_VATCODE                      1A    value
-      /free
-         chainVATDEF(P_VATCODE  );
-         return VATRATE;
-      /end-free
-     pGetVATRate       e
-      *=============================================
-     PGetVATDesc       B                     export
-     DGetVATDesc       PI            20A
-     D P_VATCODE                      1A    value
-      /free
-         chainVATDEF(P_VATCODE  );
-         return VATDESC;
-      /end-free
-     pGetVATDesc       e
-
-      *=============================================
-     P ClcVAT          B                     export
-     D ClcVAT          PI             9  2
-     D P_VATCODE                      1     value
-     d Net                            9  2  value
-
-     d tot             s             11  4
-      /free
-         chainVATDEF(P_VATCODE  );
-         tot = (net * vatrate) / 100;
-         return %dech(tot : 9 :2) ;
-      /end-free
-     p ClcVAT          e
-
-      *=============================================
-     P ExistVATRate    B                     export
-     D ExistVATRate    PI              n
-     D P_VATCODE                      1A    value
-      /free
-         chainVATDEF(P_VATCODE  );
-         return %found(VATDEF) and VATDEL <> 'X';
-      /end-free
-     p ExistVATRate    e
-
-     p chainVATDEF     b
-     d chainVATDEF     pi
-     D P_VATCODE                      1A    value
-      /free
-        if not %open(VATDEF);
-          open VATDEF;
-        endif;
-         if P_VATCODE <> VATCODE;
-           K_VATCODE =  P_VATCODE;
-           clear *all FVAT;
-           chain kf VATDEF;
-         endif;
-      /end-free
-     p chainVATDEF     e
-
-     p closeVATDEF     b
-     d closeVATDEF     pi
-      /free
-        if %open(VATDEF);
-          close VATDEF;
-        endif;
-      /end-free
-     p closeVATDEF     e
-
-
+000000161129     h nomain
+000000161129
+000000161129     FVATDEF    if   e           k disk    usropn
+000000161129
+000000161129      /copy qprotosrc,VAT
+000000161129
+000000161129     d chainVATDEF     pr
+000000161129     D P_VATCODE                      1A    value
+000000161129
+000000161129     D K_VATCODE       S                   LIKE(VATCODE)
+000000161129
+000000161129     C     kf            klist
+000000161129     C                   KFLD                    K_VATCODE
+000000161129
+000000161129      *=============================================
+000000161129     PGetVATRate       B                     export
+000000161129     DGetVATRate       PI             4P 2
+000000161129     D P_VATCODE                      1A    value
+000000161129      /free
+000000161129         chainVATDEF(P_VATCODE  );
+000000161129         return VATRATE;
+000000161129      /end-free
+000000161129     pGetVATRate       e
+000000161129      *=============================================
+000000161129     PGetVATDesc       B                     export
+000000161129     DGetVATDesc       PI            20A
+000000161129     D P_VATCODE                      1A    value
+000000161129      /free
+000000161129         chainVATDEF(P_VATCODE  );
+000000161129         return VATDESC;
+000000161129      /end-free
+000000161129     pGetVATDesc       e
+000000161129
+000000161129      *=============================================
+000000161129     P ClcVAT          B                     export
+000000161129     D ClcVAT          PI             9  2
+000000161129     D P_VATCODE                      1     value
+000000161129     d Net                            9  2  value
+000000161129
+000000161129     d tot             s             11  4
+000000161129      /free
+000000161129         chainVATDEF(P_VATCODE  );
+000000161129         tot = (net * vatrate) / 100;
+000000161129         return %dech(tot : 9 :2) ;
+000000161129      /end-free
+000000161129     p ClcVAT          e
+000000161129
+000000161129      *=============================================
+000000161129     P ExistVATRate    B                     export
+000000161129     D ExistVATRate    PI              n
+000000161129     D P_VATCODE                      1A    value
+000000161129      /free
+000000161129         chainVATDEF(P_VATCODE  );
+000000161129         return %found(VATDEF) and VATDEL <> 'X';
+000000161129      /end-free
+000000161129     p ExistVATRate    e
+000000161129
+000000161129     p chainVATDEF     b
+000000161129     d chainVATDEF     pi
+000000161129     D P_VATCODE                      1A    value
+000000161129      /free
+000000161129        if not %open(VATDEF);
+000000161129          open VATDEF;
+000000161129        endif;
+000000161129         if P_VATCODE <> VATCODE;
+000000161129           K_VATCODE =  P_VATCODE;
+000000161129           clear *all FVAT;
+000000161129           chain kf VATDEF;
+000000161129         endif;
+000000161129      /end-free
+000000161129     p chainVATDEF     e
+000000161129
+000000161129     p closeVATDEF     b
+000000161129     d closeVATDEF     pi
+000000161129      /free
+000000161129        if %open(VATDEF);
+000000161129          close VATDEF;
+000000161129        endif;
+000000161129      /end-free
+000000161129     p closeVATDEF     e
+000000161129
+000000161129

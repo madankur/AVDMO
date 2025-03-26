@@ -1,171 +1,171 @@
-     h nomain
-
-     FPROVIDE1  if   e           k disk    usropn
-
-      /copy qprotosrc,PROVIDER
-
-     d chainPROVIDE1   pr
-     D P_PRID                         5P 0  value
-
-     D K_PRID          S                   LIKE(PRID)
-
-     C     kf            klist
-     C                   KFLD                    K_PRID
-
-      *=============================================
-     PGetProName       B                     export
-     DGetProName       PI                  like(provnm)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PROVNM;
-      /end-free
-     pGetProName       e
-      *=============================================
-     PGetProCONT       B                     export
-     DGetProCONT       PI                  like(prcont)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRCONT;
-      /end-free
-     pGetProCONT       e
-      *=============================================
-     PGetProPHONE      B                     export
-     DGetProPHONE      PI                  like(prphone)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRPHONE;
-      /end-free
-     pGetProPHONE      e
-      *=============================================
-     PGetProVAT        B                     export
-     DGetProVAT        PI                  like(prvat)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRVAT;
-      /end-free
-     pGetProVAT        e
-      *=============================================
-     PGetProMAIL       B                     export
-     DGetProMAIL       PI                  like(prmail)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRMAIL;
-      /end-free
-     pGetProMAIL       e
-      *=============================================
-     PGetProAdr1       B                     export
-     DGetProAdr1       PI                  like(prline1)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRLINE1;
-      /end-free
-     pGetProAdr1       e
-      *=============================================
-     PGetProAdr2       B                     export
-     DGetProAdr2       PI                  like(prline2)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRLINE2;
-      /end-free
-     pGetProAdr2       e
-      *=============================================
-     PGetProAdr3       B                     export
-     DGetProAdr3       PI                  like(prline3)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRLINE3;
-      /end-free
-     pGetProAdr3       e
-      *=============================================
-     PGetProZip        B                     export
-     DGetProZip        PI                  like(przip)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRZIP;
-      /end-free
-     pGetProZip        e
-      *=============================================
-     PGetProCity       B                     export
-     DGetProCity       PI                  like(prcity)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRCITY;
-      /end-free
-     pGetProCity       e
-      *=============================================
-     PGetProCountry    B                     export
-     DGetProCountry    PI                  like(prcoun)
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRCOUN;
-      /end-free
-     pGetProCountry    e
-      *=============================================
-     P ExistProvider   B                     export
-     D ExistProvider   PI              n
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return %found(provide1) and prdel <> 'X';
-      /end-free
-     p ExistProvider   e
-
-      *=============================================
-     PIsProDeleted     B                     export
-     DIsProDeleted     PI              n
-     D P_PRID                         5P 0  value
-      /free
-         chainPROVIDE1(P_PRID
-               );
-         return PRDEL = 'X';
-      /end-free
-     pIsProDeleted     e
-
-     p chainPROVIDE1   b
-     d chainPROVIDE1   pi
-     D P_PRID                         5P 0  value
-      /free
-        if not %open(PROVIDE1);
-          open PROVIDE1;
-        endif;
-         if P_PRID <> PRID;
-           K_PRID =  P_PRID;
-           clear *all FPROV;
-           chain kf PROVIDE1;
-         endif;
-      /end-free
-     p chainPROVIDE1   e
-
-     p closePROVIDE1   b
-     d closePROVIDE1   pi
-      /free
-        if %open(PROVIDE1);
-          close PROVIDE1;
-        endif;
-      /end-free
-     p closePROVIDE1   e
-
-
+000000000000     h nomain
+000000000000
+000000000000     FPROVIDE1  if   e           k disk    usropn
+000000000000
+000000000000      /copy qprotosrc,PROVIDER
+000000000000
+000000000000     d chainPROVIDE1   pr
+000000000000     D P_PRID                         5P 0  value
+000000000000
+000000000000     D K_PRID          S                   LIKE(PRID)
+000000000000
+000000000000     C     kf            klist
+000000000000     C                   KFLD                    K_PRID
+000000000000
+000000000000      *=============================================
+000000000000     PGetProName       B                     export
+000000161027     DGetProName       PI                  like(provnm)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PROVNM;
+000000000000      /end-free
+000000000000     pGetProName       e
+000000000000      *=============================================
+000000000000     PGetProCONT       B                     export
+000000161027     DGetProCONT       PI                  like(prcont)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRCONT;
+000000000000      /end-free
+000000000000     pGetProCONT       e
+000000000000      *=============================================
+000000000000     PGetProPHONE      B                     export
+000000161027     DGetProPHONE      PI                  like(prphone)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRPHONE;
+000000000000      /end-free
+000000000000     pGetProPHONE      e
+000000000000      *=============================================
+000000000000     PGetProVAT        B                     export
+000000161027     DGetProVAT        PI                  like(prvat)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRVAT;
+000000000000      /end-free
+000000000000     pGetProVAT        e
+000000000000      *=============================================
+000000000000     PGetProMAIL       B                     export
+000000161027     DGetProMAIL       PI                  like(prmail)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRMAIL;
+000000000000      /end-free
+000000000000     pGetProMAIL       e
+000000000000      *=============================================
+000000000000     PGetProAdr1       B                     export
+000000161027     DGetProAdr1       PI                  like(prline1)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRLINE1;
+000000000000      /end-free
+000000000000     pGetProAdr1       e
+000000000000      *=============================================
+000000000000     PGetProAdr2       B                     export
+000000161027     DGetProAdr2       PI                  like(prline2)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRLINE2;
+000000000000      /end-free
+000000000000     pGetProAdr2       e
+000000000000      *=============================================
+000000000000     PGetProAdr3       B                     export
+000000161027     DGetProAdr3       PI                  like(prline3)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRLINE3;
+000000000000      /end-free
+000000000000     pGetProAdr3       e
+000000000000      *=============================================
+000000000000     PGetProZip        B                     export
+000000161027     DGetProZip        PI                  like(przip)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRZIP;
+000000000000      /end-free
+000000000000     pGetProZip        e
+000000000000      *=============================================
+000000000000     PGetProCity       B                     export
+000000161027     DGetProCity       PI                  like(prcity)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRCITY;
+000000000000      /end-free
+000000000000     pGetProCity       e
+000000000000      *=============================================
+000000000000     PGetProCountry    B                     export
+000000161027     DGetProCountry    PI                  like(prcoun)
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000000000         return PRCOUN;
+000000000000      /end-free
+000000000000     pGetProCountry    e
+000000000000      *=============================================
+000000161025     P ExistProvider   B                     export
+000000161025     D ExistProvider   PI              n
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000         chainPROVIDE1(P_PRID
+000000000000               );
+000000161025         return %found(provide1) and prdel <> 'X';
+000000000000      /end-free
+000000161025     p ExistProvider   e
+000000000000
+000000161025      *=============================================
+000000161025     PIsProDeleted     B                     export
+000000161025     DIsProDeleted     PI              n
+000000161025     D P_PRID                         5P 0  value
+000000161025      /free
+000000161025         chainPROVIDE1(P_PRID
+000000161025               );
+000000161025         return PRDEL = 'X';
+000000161025      /end-free
+000000161025     pIsProDeleted     e
+000000161025
+000000000000     p chainPROVIDE1   b
+000000000000     d chainPROVIDE1   pi
+000000000000     D P_PRID                         5P 0  value
+000000000000      /free
+000000000000        if not %open(PROVIDE1);
+000000000000          open PROVIDE1;
+000000000000        endif;
+000000000000         if P_PRID <> PRID;
+000000000000           K_PRID =  P_PRID;
+000000000000           clear *all FPROV;
+000000000000           chain kf PROVIDE1;
+000000000000         endif;
+000000000000      /end-free
+000000000000     p chainPROVIDE1   e
+000000000000
+000000000000     p closePROVIDE1   b
+000000000000     d closePROVIDE1   pi
+000000000000      /free
+000000000000        if %open(PROVIDE1);
+000000000000          close PROVIDE1;
+000000000000        endif;
+000000000000      /end-free
+000000000000     p closePROVIDE1   e
+000000000000
+000000000000

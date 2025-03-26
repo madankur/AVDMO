@@ -1,327 +1,327 @@
-       ctl-opt dftactgrp(*NO) bnddir('SAMPLE');
-
-       Dcl-F  art250d workstn
-         SFILE(SFL03:RRN03)
-         Infds(Info)
-         indds(indds);
-       dcl-f  article1 disk keyed;
-       dcl-f  artipro2 disk keyed;
-
-      /copy qprotosrc,familly
-      /copy qprotosrc,article
-      /copy qprotosrc,vat
-
-       dcl-pr Providers extpgm('ART201');
-         id   like(arid);
-       end-pr;
-
-       Dcl-Ds indds;
-         help            Ind             Pos(1);
-         exit            Ind             Pos(3);
-         prompt          Ind             Pos(4);
-         refresh         Ind             Pos(5);
-         DspProvider     Ind             Pos(7);
-         cancel          Ind             Pos(12);
-         morekeys        Ind             Pos(24);
-         pagedown        Ind             Pos(25);
-         sflclr          Ind             Pos(30);
-         sfldsp          Ind             Pos(31);
-         sfldspctl       Ind             Pos(32);
-         sflnxtchg       Ind             Pos(33);
-         dspatr_ri       Ind             Pos(34);
-         sflmsg          Ind             Pos(35);
-         NotFound        Ind             Pos(40);
-         sflend          Ind             Pos(80);
-       End-Ds;
-       Dcl-Ds info;
-         lrrn            Int(5)          Pos(378);
-       End-Ds;
-
-       Dcl-S panel           Packed(3:0)     INZ(1);
-       Dcl-S step01          Char(3)         inz(prp);
-       Dcl-S step02          Char(3)         inz(prp);
-       Dcl-S step03          Char(3)         inz(prp);
-       dcl-s id              like(arid);
-       dcl-s likeid          varchar(8);
-       Dcl-S rrn03           Int(5);
-       Dcl-S rrs03           Int(5);
-       Dcl-S i               Int(5);
-       Dcl-S err03           Ind;
-
-
-       Dcl-C prp             'prp';
-       Dcl-C lod             'lod';
-       Dcl-C dsp             'dsp';
-       Dcl-C key             'key';
-       Dcl-C chk             'chk';
-       Dcl-C chkctl          'chc';
-       Dcl-C actctl          'acc';
-       Dcl-C act             'act';
-
-       select;
-       when panel = 1;
-         exsr pnl01;
-       when panel = 2;
-         exsr pnl02;
-       when panel = 3;
-         exsr pnl03;
-       other;
-         exsr pnl00;
-       endsl;
-       //--- Format 01 Subroutines ------------------------------------     ---
-       begsr pnl01;
-         select ;
-         when step01 = prp ;
-           exsr s01prp;
-         when step01 = dsp ;
-           exsr s01dsp;
-         when step01 = key ;
-           exsr s01key;
-         when step01 = chk ;
-           exsr s01chk;
-         when step01 = act ;
-           exsr s01act ;
-         endsl;
-
-       endsr;
-       //--- clear & Load ------------------------------------------------------
-       begsr S01prp;
-         clear fmt01;
-         step01 = dsp;
-       endsr;
-       //--- Display  ----------------------------------------------------------
-       begsr S01dsp;
-         exfmt fmt01;
-         step01 = key;
-         id = arid;
-       endsr;
-       //--- command Keys  -----------------------------------------------------
-       begsr S01key;
-         select;
-         when exit;
-           panel  = 0;
-           step01 = prp;
-         when prompt;
-           id = SltArticle(id);
-           step01 = chk;
-         when cancel;
-           step01 = prp;
-           panel  = panel  - 1;
-         other;
-           step01 = chk;
-         endsl;
-       endsr;
-       //--- check -------------------------------------------------------------
-       begsr S01chk;
-         step01 = act;
-         chain id article1;
-         if not %found();
-           panel = 3;
-           step01 = dsp;
-         endif;
-
-       endsr;
-       //--- Action ------------------------------------------------------------
-       begsr S01act;
-         step01 = dsp;
-
-         panel = 2;
-       endsr;
-
-       //--- Format 02 Subroutines ------------------------------------     ---
-       begsr pnl02;
-         select ;
-         when step02 = prp ;
-           exsr s02prp;
-         when step02 = dsp ;
-           exsr s02dsp;
-         when step02 = key ;
-           exsr s02key;
-         when step02 = chk ;
-           exsr s02chk;
-         when step02 = act ;
-           exsr s02act ;
-         endsl;
-
-       endsr;
-       //--- clear & Load ------------------------------------------------------
-       begsr S02prp;
-         step02 = dsp;
-         fadesc = GetArtFamDesc(ARTIFA);
-         VATINCL = CLCVat(ARVATCD:ARSALEPR);
-         STOPRICE = ARSTOCK * ARWHSPR;
-         info = GetArtInfo(arid);
-       endsr;
-       //--- Display  ----------------------------------------------------------
-       begsr S02dsp;
-         exfmt fmt02;
-         step02 = key;
-       endsr;
-       //--- command Keys  -----------------------------------------------------
-       begsr S02key;
-         select;
-         when exit;
-           panel  = 1;
-           step02 = prp;
-         when cancel;
-           step02 = prp;
-           panel  = panel  - 1;
-         when dspProvider;
-           step02 = prp;
-           providers(arid);
-         other;
-           step02 = chk;
-         endsl;
-       endsr;
-       //--- check -------------------------------------------------------------
-       begsr S02chk;
-         step02 = act;
-
-
-       endsr;
-       //--- Action ------------------------------------------------------------
-       begsr S02act;
-         panel = 1;
-         step02 = prp;
-       endsr;
-
-       //- Subfiles  03 Subroutines --------------------------------------  ---
-       begsr pnl03;
-         select ;
-         when step03 = prp ;
-           exsr s03prp;
-         when step03 = lod ;
-           exsr s03lod;
-         when step03 = dsp ;
-           exsr s03dsp;
-         when step03 = key ;
-           exsr s03key;
-         when step03 = chk ;
-           exsr s03chk;
-         when step03 = act ;
-           exsr s03act ;
-         endsl;
-       endsr;
-       //--- Clear Subfile  ----------------------------------------------------
-       begsr s03prp;
-         RRn03 = 0;
-         sflclr = *on;
-         write ctl03;
-         sflclr = *off;
-         likeId = '%' + %trim(id) + '%';
-         exec sql declare c1 cursor for
-           select ARID, ARDESC, artifa from article
-             where arid like :likeId;
-         exec sql open c1;
-         step03 = lod;
-         sflend = *off;
-       endsr;
-       //--- Load Subfile  -----------------------------------------------------
-       begsr s03lod;
-         exec sql fetch c1 into :arid, :ardesc, :artifa;
-         if sqlcod = 0;
-           RRb03 = RRn03 + 1;
-           opt03 = 0;
-           for i = 1 to 16;
-             RRN03 = RRN03 + 1;
-             write sfl03;
-             if i < 16;
-               exec sql fetch c1 into :arid, :ardesc, :artifa;
-               if sqlcod <>  0;
-                 sflend = *on;
-                 leave;
-               ENDIF;
-             ENDIF;
-           endfor;
-           step03 = dsp;
-         // if result = 0
-         elseif rrn03 = 0;
-           notFound = *on;
-           errdata = id;
-           step01 = dsp;
-           panel = 1;
-           step03 = prp;
-           sflend = *on;
-         else;
-           sflend = *on;
-         endif;
-         if sflend;
-           exec sql close c1;
-         ENDIF;
-       endsr;
-       //--- Display Subfile  --------------------------------------------------
-       begsr s03dsp;
-         sfldspctl = *on;
-         sfldsp = RRn03 > 0;
-
-         write key03;
-         exfmt ctl03;
-         if LRRN <>0;
-           RRb03 = LRRN;
-         endif;
-         step03 = key;
-       endsr;
-       //--- Command Keys  -----------------------------------------------------
-       begsr s03key;
-         select;
-         when exit;
-           panel  = 1;
-           step03 = prp;
-           arid = id;
-           exec sql close c1;
-         when cancel;
-           step03 = prp;
-           panel  = 1;
-           arid = id;
-           exec sql close c1;
-         when pagedown;
-           step03 = lod;
-         other;
-           step03 = chk;
-         endsl;
-       endsr;
-       //--- Check Subfile  ----------------------------------------------------
-       begsr s03chk;
-         step03 = act;
-         err03 = *off;
-         sflnxtchg = *on;
-         readc(e) sfl03;
-         dow not %error and not %eof;
-           if opt03 > 1;
-             step03 = dsp;
-             dspatr_ri = *on;
-             sflmsg = *on;
-             if not err03;
-               rrb03 = rrn03;
-               err03 = *on;
-             endif;
-           endif;
-           update sfl03;
-           dspatr_ri = *off;
-           readc(e) sfl03;
-         enddo;
-         sflnxtchg = *off;
-       endsr;
-       //--- action Subfile  ---------------------------------------------------
-       begsr s03act;
-         readc(e) sfl03;
-         select;
-         when %error or %eof;
-           step03 = dsp;
-         when opt03 = 1;
-           panel = 2;
-           chain (arid) article1;
-           step03 = prp;
-         other;
-         endsl;
-       endsr;
-
-
-
-       //--------INITIALIZATION ----------------------------------
-       begsr *inzsr;
-       endsr;
-       //--------END SUBROUTINE ----------------------------------
-       begsr pnl00;
-         *inlr = *on;
-       endsr;
+000000210331       ctl-opt dftactgrp(*NO) bnddir('SAMPLE');
+000000210329
+000000210414       Dcl-F  art250d workstn
+000000210331         SFILE(SFL03:RRN03)
+000000210331         Infds(Info)
+000000210331         indds(indds);
+000000210329       dcl-f  article1 disk keyed;
+000000210401       dcl-f  artipro2 disk keyed;
+000000210329
+000000210329      /copy qprotosrc,familly
+000000210329      /copy qprotosrc,article
+000000210329      /copy qprotosrc,vat
+000000210414
+000000210414       dcl-pr Providers extpgm('ART201');
+000000210414         id   like(arid);
+000000210414       end-pr;
+000000210329
+000000210329       Dcl-Ds indds;
+000000210329         help            Ind             Pos(1);
+000000210329         exit            Ind             Pos(3);
+000000210329         prompt          Ind             Pos(4);
+000000210329         refresh         Ind             Pos(5);
+000000210414         DspProvider     Ind             Pos(7);
+000000210329         cancel          Ind             Pos(12);
+000000210329         morekeys        Ind             Pos(24);
+000000210329         pagedown        Ind             Pos(25);
+000000210329         sflclr          Ind             Pos(30);
+000000210329         sfldsp          Ind             Pos(31);
+000000210329         sfldspctl       Ind             Pos(32);
+000000210329         sflnxtchg       Ind             Pos(33);
+000000210329         dspatr_ri       Ind             Pos(34);
+000000210329         sflmsg          Ind             Pos(35);
+000000210329         NotFound        Ind             Pos(40);
+000000210329         sflend          Ind             Pos(80);
+000000210329       End-Ds;
+000000210331       Dcl-Ds info;
+000000210331         lrrn            Int(5)          Pos(378);
+000000210331       End-Ds;
+000000210329
+000000210329       Dcl-S panel           Packed(3:0)     INZ(1);
+000000210329       Dcl-S step01          Char(3)         inz(prp);
+000000210329       Dcl-S step02          Char(3)         inz(prp);
+000000210331       Dcl-S step03          Char(3)         inz(prp);
+000000210329       dcl-s id              like(arid);
+000000210331       dcl-s likeid          varchar(8);
+000000210331       Dcl-S rrn03           Int(5);
+000000210331       Dcl-S rrs03           Int(5);
+000000210331       Dcl-S i               Int(5);
+000000210331       Dcl-S err03           Ind;
+000000210331
+000000210329
+000000210329       Dcl-C prp             'prp';
+000000210329       Dcl-C lod             'lod';
+000000210329       Dcl-C dsp             'dsp';
+000000210329       Dcl-C key             'key';
+000000210329       Dcl-C chk             'chk';
+000000210329       Dcl-C chkctl          'chc';
+000000210329       Dcl-C actctl          'acc';
+000000210329       Dcl-C act             'act';
+000000210329
+000000210329       select;
+000000210329       when panel = 1;
+000000210329         exsr pnl01;
+000000210329       when panel = 2;
+000000210329         exsr pnl02;
+000000210331       when panel = 3;
+000000210331         exsr pnl03;
+000000210329       other;
+000000210329         exsr pnl00;
+000000210329       endsl;
+000000210329       //--- Format 01 Subroutines ------------------------------------     ---
+000000210329       begsr pnl01;
+000000210329         select ;
+000000210329         when step01 = prp ;
+000000210329           exsr s01prp;
+000000210329         when step01 = dsp ;
+000000210329           exsr s01dsp;
+000000210329         when step01 = key ;
+000000210329           exsr s01key;
+000000210329         when step01 = chk ;
+000000210329           exsr s01chk;
+000000210329         when step01 = act ;
+000000210329           exsr s01act ;
+000000210329         endsl;
+000000210329
+000000210329       endsr;
+000000210329       //--- clear & Load ------------------------------------------------------
+000000210329       begsr S01prp;
+000000210329         clear fmt01;
+000000210329         step01 = dsp;
+000000210329       endsr;
+000000210329       //--- Display  ----------------------------------------------------------
+000000210329       begsr S01dsp;
+000000210329         exfmt fmt01;
+000000210329         step01 = key;
+000000210329         id = arid;
+000000210329       endsr;
+000000210329       //--- command Keys  -----------------------------------------------------
+000000210329       begsr S01key;
+000000210329         select;
+000000210329         when exit;
+000000210329           panel  = 0;
+000000210329           step01 = prp;
+000000210329         when prompt;
+000000210329           id = SltArticle(id);
+000000210329           step01 = chk;
+000000210329         when cancel;
+000000210329           step01 = prp;
+000000210329           panel  = panel  - 1;
+000000210329         other;
+000000210329           step01 = chk;
+000000210329         endsl;
+000000210329       endsr;
+000000210329       //--- check -------------------------------------------------------------
+000000210329       begsr S01chk;
+000000210329         step01 = act;
+000000210329         chain id article1;
+000000210329         if not %found();
+000000210331           panel = 3;
+000000210331           step01 = dsp;
+000000210329         endif;
+000000210329
+000000210329       endsr;
+000000210329       //--- Action ------------------------------------------------------------
+000000210329       begsr S01act;
+000000210329         step01 = dsp;
+000000210330
+000000210329         panel = 2;
+000000210329       endsr;
+000000210329
+000000210329       //--- Format 02 Subroutines ------------------------------------     ---
+000000210329       begsr pnl02;
+000000210329         select ;
+000000210329         when step02 = prp ;
+000000210329           exsr s02prp;
+000000210329         when step02 = dsp ;
+000000210329           exsr s02dsp;
+000000210329         when step02 = key ;
+000000210329           exsr s02key;
+000000210329         when step02 = chk ;
+000000210329           exsr s02chk;
+000000210329         when step02 = act ;
+000000210329           exsr s02act ;
+000000210329         endsl;
+000000210329
+000000210329       endsr;
+000000210329       //--- clear & Load ------------------------------------------------------
+000000210329       begsr S02prp;
+000000210329         step02 = dsp;
+000000210330         fadesc = GetArtFamDesc(ARTIFA);
+000000210330         VATINCL = CLCVat(ARVATCD:ARSALEPR);
+000000210330         STOPRICE = ARSTOCK * ARWHSPR;
+000000210330         info = GetArtInfo(arid);
+000000210329       endsr;
+000000210329       //--- Display  ----------------------------------------------------------
+000000210329       begsr S02dsp;
+000000210329         exfmt fmt02;
+000000210329         step02 = key;
+000000210329       endsr;
+000000210329       //--- command Keys  -----------------------------------------------------
+000000210329       begsr S02key;
+000000210329         select;
+000000210329         when exit;
+000000210329           panel  = 1;
+000000210329           step02 = prp;
+000000210329         when cancel;
+000000210329           step02 = prp;
+000000210329           panel  = panel  - 1;
+000000210414         when dspProvider;
+000000210414           step02 = prp;
+000000210414           providers(arid);
+000000210329         other;
+000000210329           step02 = chk;
+000000210329         endsl;
+000000210329       endsr;
+000000210329       //--- check -------------------------------------------------------------
+000000210329       begsr S02chk;
+000000210329         step02 = act;
+000000210329
+000000210329
+000000210329       endsr;
+000000210329       //--- Action ------------------------------------------------------------
+000000210329       begsr S02act;
+000000210329         panel = 1;
+000000210329         step02 = prp;
+000000210329       endsr;
+000000210329
+000000210331       //- Subfiles  03 Subroutines --------------------------------------  ---
+000000210331       begsr pnl03;
+000000210331         select ;
+000000210331         when step03 = prp ;
+000000210331           exsr s03prp;
+000000210331         when step03 = lod ;
+000000210331           exsr s03lod;
+000000210331         when step03 = dsp ;
+000000210331           exsr s03dsp;
+000000210331         when step03 = key ;
+000000210331           exsr s03key;
+000000210331         when step03 = chk ;
+000000210331           exsr s03chk;
+000000210331         when step03 = act ;
+000000210331           exsr s03act ;
+000000210331         endsl;
+000000210331       endsr;
+000000210331       //--- Clear Subfile  ----------------------------------------------------
+000000210331       begsr s03prp;
+000000210331         RRn03 = 0;
+000000210331         sflclr = *on;
+000000210331         write ctl03;
+000000210331         sflclr = *off;
+000000210331         likeId = '%' + %trim(id) + '%';
+000000210331         exec sql declare c1 cursor for
+000000210331           select ARID, ARDESC, artifa from article
+000000210331             where arid like :likeId;
+000000210331         exec sql open c1;
+000000210331         step03 = lod;
+000000210401         sflend = *off;
+000000210331       endsr;
+000000210331       //--- Load Subfile  -----------------------------------------------------
+000000210331       begsr s03lod;
+000000210331         exec sql fetch c1 into :arid, :ardesc, :artifa;
+000000210331         if sqlcod = 0;
+000000210331           RRb03 = RRn03 + 1;
+000000210331           opt03 = 0;
+000000210331           for i = 1 to 16;
+000000210331             RRN03 = RRN03 + 1;
+000000210331             write sfl03;
+000000210331             if i < 16;
+000000210331               exec sql fetch c1 into :arid, :ardesc, :artifa;
+000000210331               if sqlcod <>  0;
+000000210331                 sflend = *on;
+000000210401                 leave;
+000000210331               ENDIF;
+000000210331             ENDIF;
+000000210331           endfor;
+000000210331           step03 = dsp;
+000000210331         // if result = 0
+000000210331         elseif rrn03 = 0;
+000000210331           notFound = *on;
+000000210331           errdata = id;
+000000210331           step01 = dsp;
+000000210331           panel = 1;
+000000210331           step03 = prp;
+000000210331           sflend = *on;
+000000210331         else;
+000000210331           sflend = *on;
+000000210331         endif;
+000000210331         if sflend;
+000000210331           exec sql close c1;
+000000210331         ENDIF;
+000000210331       endsr;
+000000210331       //--- Display Subfile  --------------------------------------------------
+000000210331       begsr s03dsp;
+000000210331         sfldspctl = *on;
+000000210331         sfldsp = RRn03 > 0;
+000000210331
+000000210331         write key03;
+000000210331         exfmt ctl03;
+000000210331         if LRRN <>0;
+000000210331           RRb03 = LRRN;
+000000210331         endif;
+000000210331         step03 = key;
+000000210331       endsr;
+000000210331       //--- Command Keys  -----------------------------------------------------
+000000210331       begsr s03key;
+000000210331         select;
+000000210331         when exit;
+000000210331           panel  = 1;
+000000210331           step03 = prp;
+000000210401           arid = id;
+000000210414           exec sql close c1;
+000000210331         when cancel;
+000000210331           step03 = prp;
+000000210331           panel  = 1;
+000000210401           arid = id;
+000000210414           exec sql close c1;
+000000210331         when pagedown;
+000000210331           step03 = lod;
+000000210331         other;
+000000210331           step03 = chk;
+000000210331         endsl;
+000000210331       endsr;
+000000210331       //--- Check Subfile  ----------------------------------------------------
+000000210331       begsr s03chk;
+000000210331         step03 = act;
+000000210331         err03 = *off;
+000000210331         sflnxtchg = *on;
+000000210331         readc(e) sfl03;
+000000210331         dow not %error and not %eof;
+000000210331           if opt03 > 1;
+000000210331             step03 = dsp;
+000000210331             dspatr_ri = *on;
+000000210331             sflmsg = *on;
+000000210331             if not err03;
+000000210331               rrb03 = rrn03;
+000000210331               err03 = *on;
+000000210331             endif;
+000000210331           endif;
+000000210331           update sfl03;
+000000210331           dspatr_ri = *off;
+000000210331           readc(e) sfl03;
+000000210331         enddo;
+000000210331         sflnxtchg = *off;
+000000210331       endsr;
+000000210331       //--- action Subfile  ---------------------------------------------------
+000000210331       begsr s03act;
+000000210331         readc(e) sfl03;
+000000210331         select;
+000000210331         when %error or %eof;
+000000210331           step03 = dsp;
+000000210331         when opt03 = 1;
+000000210331           panel = 2;
+000000210331           chain (arid) article1;
+000000210331           step03 = prp;
+000000210331         other;
+000000210331         endsl;
+000000210331       endsr;
+000000210331
+000000210329
+000000210329
+000000210329       //--------INITIALIZATION ----------------------------------
+000000210329       begsr *inzsr;
+000000210329       endsr;
+000000210329       //--------END SUBROUTINE ----------------------------------
+000000210329       begsr pnl00;
+000000210329         *inlr = *on;
+000000210329       endsr;
